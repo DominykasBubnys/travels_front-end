@@ -1,0 +1,46 @@
+.place-list {
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+  width: 60%;
+  height: calc(100vh - 25vh);
+  box-sizing: border-box;
+  background-color: rgb(0, 0, 0);
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  border-radius: 20px;
+}
+
+.share-place-btn {
+  padding: 10px 30px;
+  background-color: black;
+  color: aliceblue;
+  outline: none;
+  border: 2px solid white;
+  cursor: pointer;
+  border-radius: 20px;
+  font-size: 1.5rem;
+  letter-spacing: 3px;
+}
+
+.no-place-header {
+  font-size: 3rem;
+  letter-spacing: 3px;
+  word-spacing: 5px;
+  color: brown;
+}
+
+@media (max-width: 900px) {
+  .place-list {
+    width: 80%;
+  }
+}
+
+@media (max-width: 500px) {
+  .place-list {
+    width: 95%;
+    padding: 10px;
+  }
+}

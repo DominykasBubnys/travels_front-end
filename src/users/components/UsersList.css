@@ -1,0 +1,24 @@
+.users-list {
+  list-style: none;
+  margin: 0 auto;
+  width: 82%;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-height: 70vh;
+  background-color: rgba(0, 0, 0, 0.534);
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  border-radius: 20px;
+}
+
+::-webkit-scrollbar-corner {
+  display: none;
+}
+
+::-webkit-scrollbar {
+  border-radius: 0 20px 20px 0;
+  background-color: rgba(0, 0, 0, 0.534);
+}

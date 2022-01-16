@@ -16,6 +16,10 @@
   margin-top: 35px;
 }
 
+.switch {
+  background-color: aqua;
+}
+
 .button:focus {
   outline: none;
 }

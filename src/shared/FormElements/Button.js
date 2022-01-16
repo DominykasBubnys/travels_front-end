@@ -29,7 +29,7 @@ const Button = props => {
   }
   return (
     <button
-      className={`button button--${props.size || 'default'} ${props.inverse &&
+      className={`${props.switch} button button--${props.size || 'default'} ${props.inverse &&
         'button--inverse'} ${props.type==="submit" && "submit-btn"} ${props.danger && 'button--danger'}`}
       type={props.type}
       onClick={props.onClick}

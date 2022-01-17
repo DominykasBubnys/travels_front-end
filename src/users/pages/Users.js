@@ -1,136 +1,52 @@
+import React, { useEffect, useState } from "react";
+import LoadingSpinner from "../../shared/UIElements/LoadingSpinner";
+import ErrorModal from "../../shared/UIElements/ErrorModal";
 import UsersList from "../components/UsersList";
 
 const Users = () => {
 
-    const DUMMY_USERS = [
-        {
-          id: 'u1',
-          name: 'Jim Brown',
-          image: "1.jpg",
-          places: 1
-        },
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState();
+  const [loadedUsers, setLoadedUsers] = useState();
 
-        {
-          id: 'u2',
-          name: 'Alice Miller',
-          image: "2.jpg",
-          places: 7
-        },
+  useEffect(()=>{
+    const getUsersFromDB = async () => {
+      
+      try{
+        setIsLoading(true);
 
-        {
-          id: 'u3',
-          name: 'Daniel Scott',
-          image: "3.jpg",
-          places: 1
-        },
+        const response = await fetch("http://localhost:5000/users");
+        const responseData = await response.json();
+        if(!response.ok){
+          throw new Error(response.message);
+        }
 
-        {
-          id: 'u4',
-          name: 'Ellen Parker',
-          image: "4.jpg",
-          places: 3
-        },
+        setLoadedUsers(responseData.users);
+        setIsLoading(false);
 
-        {
-          id: 'u5',
-          name: 'Peter Lee',
-          image: "5.jpg",
-          places: 5
-        },
+      }catch(err){
+        setIsLoading(false);
+        console.log("error'as fronte");
+        setIsError(err);
+      }
 
-        {
-          id: 'u6',
-          name: 'Bruce Lee',
-          image: "6.jpg",
-          places: 2
-        },
+    }
 
-        {
-          id: 'u1',
-          name: 'Jim Brown',
-          image: "1.jpg",
-          places: 1
-        },
+    getUsersFromDB();
+  },[]);
 
-        {
-          id: 'u2',
-          name: 'Alice Miller',
-          image: "2.jpg",
-          places: 7
-        },
 
-        {
-          id: 'u3',
-          name: 'Daniel Scott',
-          image: "3.jpg",
-          places: 1
-        },
+  const errorHandler = () => {
+    setIsError(null);
+  }
 
-        {
-          id: 'u4',
-          name: 'Ellen Parker',
-          image: "4.jpg",
-          places: 3
-        },
-
-        {
-          id: 'u5',
-          name: 'Peter Lee',
-          image: "5.jpg",
-          places: 5
-        },
-
-        {
-          id: 'u6',
-          name: 'Bruce Lee',
-          image: "6.jpg",
-          places: 2
-        },
-
-        {
-          id: 'u1',
-          name: 'Jim Brown',
-          image: "1.jpg",
-          places: 1
-        },
-
-        {
-          id: 'u2',
-          name: 'Alice Miller',
-          image: "2.jpg",
-          places: 7
-        },
-
-        {
-          id: 'u3',
-          name: 'Daniel Scott',
-          image: "3.jpg",
-          places: 1
-        },
-
-        {
-          id: 'u4',
-          name: 'Ellen Parker',
-          image: "4.jpg",
-          places: 3
-        },
-
-        {
-          id: 'u5',
-          name: 'Peter Lee',
-          image: "5.jpg",
-          places: 5
-        },
-
-        {
-          id: 'u6',
-          name: 'Bruce Lee',
-          image: "6.jpg",
-          places: 2
-        },
-      ];
-
-    return <UsersList items={DUMMY_USERS}/>
+  return <React.Fragment>
+    {/* <ErrorModal error={isError} onClear={errorHandler} /> */}
+    { isLoading && <div className="center">
+      <LoadingSpinner asOverlay />
+    </div>}
+    { !isLoading && loadedUsers && <UsersList items={loadedUsers}/>}
+  </React.Fragment>
 }
 
 

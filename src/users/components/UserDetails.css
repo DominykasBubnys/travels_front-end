@@ -1,0 +1,58 @@
+.details-container {
+  width: 90%;
+  height: 80vh;
+  background-color: rgba(32, 18, 18, 0.835);
+  margin: 0 auto;
+  box-shadow: inset 0px 0px 20px 20px rgba(0, 0, 0, 0.822);
+  border-radius: 20px;
+  color: aliceblue;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.details-container div {
+  font-size: 1rem;
+  min-width: 300px;
+  text-align: center;
+  align-self: center;
+}
+
+.user-details-image {
+  width: 30%;
+  height: 40vh;
+  align-self: center;
+}
+
+.user-details-contacts {
+  height: min-content;
+  align-self: center;
+}
+.message-form {
+  text-align: center;
+  margin: 20px;
+}
+
+.message-form textarea {
+  text-align: center;
+  width: 90%;
+  display: block;
+  resize: vertical;
+  height: 100px;
+  max-height: 200px;
+  margin: 10px;
+  background: transparent;
+  outline: none;
+  border-radius: 10px;
+  box-shadow: rgba(122, 73, 73, 0.35) 0px 5px 15px;
+  color: beige;
+  font-size: 1.2rem;
+  border: none;
+  margin-bottom: 30px;
+}
+
+@media (max-width: 768px) {
+  .details-container div {
+    font-size: 0.8rem;
+  }
+}

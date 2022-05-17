@@ -4,7 +4,8 @@ import Input from '../../shared/FormElements/Input';
 import Button from '../../shared/FormElements/Button';
 import LoadingSpinner from "../../shared/UIElements/LoadingSpinner";
 import ErrorModal from "../../shared/UIElements/ErrorModal";
-
+// import ImageUpload from "../../shared/FormElements/ImageUpload"
+import { useHistory } from "react-router-dom";
 
 
 import {
@@ -21,6 +22,9 @@ const Auth = () => {
   const [isLoginMode, setIsLoginMode] = useState(true);
   const [loading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+
+  const history = useHistory();
+  
 
   const [formState, inputHandler, setFormData] = useForm(
     {
@@ -41,7 +45,8 @@ const Auth = () => {
       setFormData(
         {
           ...formState.inputs,
-          name: undefined
+          name: undefined,
+          // image: undefined
         },
         formState.inputs.email.isValid && formState.inputs.password.isValid
       );
@@ -52,7 +57,12 @@ const Auth = () => {
           name: {
             value: '',
             isValid: false
-          }
+          },
+
+          // image: {
+          //   value: null,
+          //   isValid: false,
+          // }
         },
         false
       );
@@ -62,12 +72,11 @@ const Auth = () => {
 
   const authSubmitHandler = async event => {
     event.preventDefault();
-    auth.login();
 
     if(isLoginMode){
       try{
         setIsLoading(true);
-        const response = await fetch("http://localhost:5000/users/login", {
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/users/login`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
@@ -80,17 +89,22 @@ const Auth = () => {
         const responseData = await response.json();
 
         if(!response.ok)throw new Error(responseData.message);
-        auth.login();
+
+        auth.login(responseData.user._id);
         setIsLoading(false);
-        console.log("logged in succesfully");
+        history.push("/");
+
+
       }catch(err){
         setError(err.message || "Something went wrong, please try again..");
         setIsLoading(false)
       }
+
     }else{ // if it's sign-up mode...
       try{
+
         setIsLoading(true);
-        const response = await fetch("http://localhost:5000/users/sign-up", {
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/users/sign-up`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
@@ -103,11 +117,15 @@ const Auth = () => {
         })
         const responseData = await response.json();
 
-        if(!response.ok)throw new Error(responseData.message);
+        if(!response.ok){
+          throw new Error(responseData.message);
+        }
 
-        console.log("Your sign-up is successful");
-        auth.login();
+
+        auth.login(responseData.user._id);
         setIsLoading(false);
+        history.push("/");
+
 
       }catch(err){
         setError(err.message || "Something went wrong, please try again..");
@@ -118,6 +136,7 @@ const Auth = () => {
 
   const errorHandler = () => {
     setError(null);
+
   }
 
   return (
@@ -126,6 +145,9 @@ const Auth = () => {
       <Card className="authentication">
         {loading && <LoadingSpinner asOverlay/>}
         <form className="auth-form place-form" onSubmit={authSubmitHandler}>
+
+        {/* {!isLoginMode && (<ImageUpload center id="image" onInput={inputHandler} />)} */}
+
           {!isLoginMode && (
             <Input
               element="input"
@@ -136,7 +158,8 @@ const Auth = () => {
               errorText="Please enter a name."
               onInput={inputHandler}
             />
-          )}
+          ) }
+
           <Input
             element="input"
             id="email"

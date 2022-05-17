@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import LoadingSpinner from "../../shared/UIElements/LoadingSpinner";
 import ErrorModal from "../../shared/UIElements/ErrorModal";
 import UsersList from "../components/UsersList";
+import { useHistory } from "react-router-dom";
 
 const Users = () => {
 
+  const history = useHistory();
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState();
   const [loadedUsers, setLoadedUsers] = useState();
@@ -15,7 +17,7 @@ const Users = () => {
       try{
         setIsLoading(true);
 
-        const response = await fetch("http://localhost:5000/users");
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/users`);
         const responseData = await response.json();
         if(!response.ok){
           throw new Error(response.message);
@@ -26,8 +28,7 @@ const Users = () => {
 
       }catch(err){
         setIsLoading(false);
-        console.log("error'as fronte");
-        setIsError(err);
+        setIsError(`Cannot load users! (System error: ${err.message})` || "Cannot load Users.");
       }
 
     }
@@ -38,10 +39,11 @@ const Users = () => {
 
   const errorHandler = () => {
     setIsError(null);
+    history.push("/");
   }
 
   return <React.Fragment>
-    {/* <ErrorModal error={isError} onClear={errorHandler} /> */}
+    <ErrorModal error={isError} onClear={errorHandler} />
     { isLoading && <div className="center">
       <LoadingSpinner asOverlay />
     </div>}

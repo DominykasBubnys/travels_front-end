@@ -1,0 +1,11 @@
+.footer-div {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.397);
+  color: white;
+  text-align: right;
+  display: flex;
+  justify-content: right;
+  padding-bottom: 5px;
+}

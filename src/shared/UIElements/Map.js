@@ -2,10 +2,8 @@ import "./Map.css";
 
 const Map = props => {
     
-    console.log("props in maps file: ", props.props);
-
     return <div>
-        {`${props.props.coordinates.lng} ==> ${props.props.coordinates.lat}`}
+        <h1 style={{fontSize: "4vw"}} >54.601712,25.127005</h1>
     </div>
 }
 

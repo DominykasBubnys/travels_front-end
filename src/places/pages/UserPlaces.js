@@ -1,43 +1,60 @@
 import { useParams } from "react-router";
 import PlaceList from "../components/PlaceList";
+import React, { useState, useEffect } from "react";
+import LoadingSpinner from "../../shared/UIElements/LoadingSpinner";
+import ErrorModal from "../../shared/UIElements/ErrorModal";
+import Footer from "../../shared/Footer/footer";
 
-const DummyPlaces = [
-    {
-        id: "p1",
-        title: "Empire state building",
-        description: "One of the most famous sky scrapers in the world",
-        imageUrl: "https://i.pinimg.com/originals/2c/60/8e/2c608efaf70b37db464e6b935674dc57.jpg",
-        address: "20 W 34th 5t, New York, NY 10001",
-        location: {
-            lat: 40.7484405,
-            lng: -73.9878584
-        },
-        creator: "u1"
-    },
-
-    {
-        id: "p2",
-        title: "Castle state building",
-        description: "Second of the most famous sky scrapers in the world",
-        imageUrl: "https://i.furniturehomewares.com/images/002/img-4720.jpg",
-        address: "20 W 34th 5t, New York, NY 10001",
-        location: {
-            lat: 40.7484405,
-            lng: -73.9878584
-        },
-        creator: "u2"
-    }
-]
 
 const UserPlaces = () => {
-    const id = useParams().userId;
+
+    const [isLoading, setIsLoading] = useState(true);
+    const [isError, setIsError] = useState(null);
+    const [data, setData] = useState(null);
+    const [isDeleted, setIsDeleted] = useState(false);
     
-    if(id){
-        const userPlaces = DummyPlaces.filter(place => place.creator === id);
-        return <PlaceList items={userPlaces}/>
+    const userId = useParams().userId;
+
+    const errorCloseHandler = () => {
+        setIsError(null);
     }
 
-    return <PlaceList items={DummyPlaces} />
+
+    useEffect(() => {
+        const loadData = async () => {
+            try {
+                let request;
+                if(userId) request = await fetch(`${process.env.REACT_APP_BACKEND_URL}/user-places/${userId}`);
+                else request = await fetch(`${process.env.REACT_APP_BACKEND_URL}`);
+                if(!request.ok)throw new Error("failed to load this user places! please make sure user id exists");
+                const responseData = await request.json();
+                setData(responseData.places);
+
+            } catch (err) {
+                setData([]);
+                setIsError(err.message || "Loading places fails.. We are working on this issue");
+            }
+            setIsLoading(false);
+        }
+
+        loadData();
+    }, [userId, isDeleted]);
+
+    const deletePlaceHandler = (deletedPlaceId) => {
+
+        setData(prevPlaces => {
+            prevPlaces.filter(place => place._id !== deletedPlaceId)
+        });
+
+        setIsDeleted(true);
+    }
+
+    return <React.Fragment>
+        {isLoading && <LoadingSpinner asOverlay/>}
+        <ErrorModal error={isError} onClear={errorCloseHandler} />
+        {!isLoading && data && <PlaceList userId={userId} onDeletePlace={deletePlaceHandler} userControllers={userId} items={data} />}
+        <Footer />
+    </React.Fragment>
         
 }
 

@@ -10,6 +10,7 @@
   align-items: center;
   letter-spacing: 2px;
   font-style: italic;
+  margin-right: 5rem;
 }
 
 .nav-links li {
@@ -17,8 +18,7 @@
 }
 
 .nav-links a {
-  color: #292929;
-  border: 1px solid rgba(255, 255, 255, 0.315);
+  color: #d3c1c1;
   text-decoration: none;
   padding: 0.5rem 2rem;
   border-radius: 30px;

@@ -2,15 +2,19 @@
   list-style: none;
   margin: 0 auto;
   padding: 0;
-  width: 60%;
+  width: 75%;
   height: calc(100vh - 25vh);
   box-sizing: border-box;
-  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.904);
   box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
     rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
-  overflow-y: scroll;
+  overflow-y: auto;
   overflow-x: hidden;
+  padding-left: 2rem;
   border-radius: 20px;
+  border-top: 3px solid rgb(105, 89, 89);
+  border-bottom: 3px solid rgb(105, 89, 89);
+  box-shadow: 0 0px 5px 5px rgba(246, 246, 245, 0.246);
 }
 
 .share-place-btn {
@@ -32,15 +36,44 @@
   color: brown;
 }
 
+#search-input {
+  background-color: rgba(41, 24, 24, 0.384);
+
+  outline: none;
+  text-align: center;
+  width: 70%;
+  padding: 8px;
+  border: none;
+  color: bisque;
+  font-size: 1.4rem;
+  font-style: italic;
+  border-radius: 20px;
+  box-shadow: rgba(153, 122, 122, 0.4) 0px 2px 4px,
+    rgba(190, 181, 181, 0.3) 0px 7px 13px -3px,
+    rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+}
+
+#search-input::placeholder {
+  color: white;
+}
+
+.controllers {
+  margin: 20px;
+  display: flex;
+  color: aliceblue;
+  justify-content: center;
+}
+
 @media (max-width: 900px) {
   .place-list {
     width: 80%;
   }
 }
 
-@media (max-width: 500px) {
+@media (max-width: 800px) {
   .place-list {
     width: 95%;
     padding: 10px;
+    height: calc(100vh - 20vh);
   }
 }

@@ -8,6 +8,8 @@
   margin-right: 1rem;
   text-decoration: none;
   display: inline-block;
+  background: transparent;
+  border-color: #faf6f636;
 }
 
 .submit-btn {

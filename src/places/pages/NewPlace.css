@@ -7,6 +7,10 @@
   max-width: 40rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
   background: rgba(0, 0, 0, 0.931);
+  max-height: 50vh;
+  overflow-y: scroll;
+  border-top: 3px solid rgb(105, 89, 89);
+  border-bottom: 3px solid rgb(105, 89, 89);
 }
 
 @media (max-width: 1000px) {

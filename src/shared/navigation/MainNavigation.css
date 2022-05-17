@@ -1,5 +1,4 @@
 .main-navigation__menu-btn {
-  width: 3rem;
   height: 3rem;
   background: transparent;
   border: none;
@@ -19,10 +18,10 @@
 }
 
 .main-navigation__title {
-  color: white;
   font-style: italic;
-  letter-spacing: 8px;
+  letter-spacing: 7px;
   font-weight: 100;
+  margin-left: 5rem;
 }
 
 .main-navigation__title a {
@@ -45,5 +44,13 @@
 
   .main-navigation__header-nav {
     display: block;
+  }
+}
+
+@media (max-width: 800px) {
+  .main-navigation__title {
+    letter-spacing: 3px;
+    font-weight: 100;
+    margin-left: 2rem;
   }
 }

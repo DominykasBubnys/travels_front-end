@@ -6,7 +6,7 @@
 .form-control input,
 .form-control textarea {
   display: block;
-  color: #0a0707;
+  color: #926363;
   letter-spacing: 2px;
   word-spacing: 5px;
   font-style: italic;
@@ -16,6 +16,7 @@
 .form-control label {
   font-weight: bold;
   margin-bottom: 0.5rem;
+  color: bisque;
 }
 
 .form-control input,

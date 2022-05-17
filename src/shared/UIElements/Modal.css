@@ -4,13 +4,17 @@
   top: 22vh;
   left: 10%;
   width: 80%;
-  background: white;
+  background: rgb(12, 12, 12);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
   border-radius: 8px;
   overflow: hidden;
+  color: rgb(153, 115, 115);
+  font-size: 1.3rem;
+  text-align: center;
 }
 
 .modal__header {
+  text-align: center;
   width: 100%;
   padding: 1rem 0.5rem;
   background: brown;

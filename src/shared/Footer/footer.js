@@ -1,22 +1,27 @@
-import "./footer.css"
-import Button from "../FormElements/Button";
-import { useContext } from "react";
-import {AuthContext} from "../context/auth-context";
-import { useHistory } from "react-router-dom";
+import './footer.css'
+import Button from '../FormElements/Button'
+import { useContext } from 'react'
+import { AuthContext } from '../context/auth-context'
+import { useHistory } from 'react-router-dom'
 
 const Footer = (props) => {
+  const navigation = useHistory()
 
-    const navigation = useHistory();
+  const Auth = useContext(AuthContext)
 
-    const Auth = useContext(AuthContext);
+  const onCLickHandler = async () => {
+    navigation.push(`/user/${Auth.userId}`)
+  }
 
-    const onCLickHandler = async() => {
-        navigation.push(`/user/${Auth.userId}`)
-    }
-
-    return <div className="footer-div">
-        {Auth.isLoggedIn && <Button onClick={onCLickHandler} inverse>PROFILE</Button>}
+  return (
+    <div className={`footer-div ${!Auth.isLoggedIn && 'footer-div-logout'}`}>
+      {Auth.isLoggedIn && (
+        <Button onClick={onCLickHandler} inverse>
+          PROFILE
+        </Button>
+      )}
     </div>
+  )
 }
 
-export default Footer;
+export default Footer

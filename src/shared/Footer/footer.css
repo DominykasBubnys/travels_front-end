@@ -1,11 +1,15 @@
 .footer-div {
-  position: absolute;
   bottom: 0;
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.397);
+  background-color: rgba(0, 0, 0, 0.901);
   color: white;
   text-align: right;
   display: flex;
   justify-content: right;
-  padding-bottom: 5px;
+  padding: 1rem;
+  position: fixed;
+}
+
+.footer-div-logout {
+  background-color: rgba(0, 0, 0, 0.5);
 }

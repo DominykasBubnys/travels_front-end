@@ -127,8 +127,9 @@ const PlaceDetails = () => {
 
               {showReactions && reactedUsersList.length > 0 && (
                 <div className={classes.reactions}>
-                  {reactedUsersList.map((user) => (
+                  {reactedUsersList.map((user, idx) => (
                     <button
+                      key={idx}
                       style={{ margin: '10px auto', border: 'none' }}
                       onClick={linkToReactedUserProfile.bind(null, user._id)}
                     >

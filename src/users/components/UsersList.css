@@ -20,5 +20,6 @@
 
 ::-webkit-scrollbar {
   border-radius: 0 20px 20px 0;
-  background-color: rgba(0, 0, 0, 0.534);
+  background-color: rgba(223, 207, 207, 0.534);
+  width: 0;
 }

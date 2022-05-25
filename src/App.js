@@ -17,6 +17,7 @@ import { AuthContext } from './shared/context/auth-context'
 import UserDetails from './users/components/UserDetails'
 import PlaceDetails from './places/components/PlaceDetails'
 import Logout from './users/pages/Logout'
+import Footer from './shared/Footer/footer'
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
@@ -103,6 +104,7 @@ function App() {
       <Router>
         <MainNavigation />
         <main>{routes}</main>
+        <Footer />
       </Router>
     </AuthContext.Provider>
   )

@@ -39,7 +39,12 @@ const MainNavigation = props => {
         <nav className="main-navigation__header-nav">
           <NavLinks />
         </nav>
+        
       </MainHeader>
+      <div className="extra-header">
+        <h1 className='air_header'>Plan your trip!</h1>
+        <div className='air_logo'></div>
+      </div>
     </React.Fragment>
   );
 };

@@ -20,21 +20,28 @@ const UserPlaces = () => {
     const loadData = async () => {
       try {
         let request
-        if (userId)
+        if (userId){
           request = await fetch(
             `${process.env.REACT_APP_BACKEND_URL}/user-places/${userId}`
           )
-        else request = await fetch(`${process.env.REACT_APP_BACKEND_URL}`)
-        if (!request.ok)
+        }
+          
+        //else request = await fetch(`${process.env.REACT_APP_BACKEND_URL}`)
+        else request = await fetch('http://localhost:8000/places');
+
+        if (!request.ok){
+
           throw new Error(
-            'failed to load this user places! please make sure user id exists'
+            'failed to load places from database' // not informative err message
           )
-        const responseData = await request.json()
+        }
+        const responseData = await request.json();
+
         setData(responseData.places)
       } catch (err) {
         setData([])
         setIsError(
-          err.message || 'Loading places fails.. We are working on this issue'
+          err.message || 'fetching places fails.. We are working on this issue'
         )
       }
       setIsLoading(false)

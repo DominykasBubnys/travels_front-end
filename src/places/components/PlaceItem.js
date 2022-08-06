@@ -58,35 +58,35 @@ const PlaceItem = (props) => {
     setIsError(null)
   }
 
-  const reactionHandler = async () => {
-    try {
-      const sendRequest = await fetch(
-        `${process.env.REACT_APP_BACKEND_URL}/liked-place/${props.id}`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            reactedUserId: Auth.userId
-          })
-        }
-      )
+  // const reactionHandler = async () => {
+  //   try {
+  //     const sendRequest = await fetch(
+  //       `${process.env.REACT_APP_BACKEND_URL}/liked-place/${props.id}`,
+  //       {
+  //         method: 'POST',
+  //         headers: {
+  //           'Content-Type': 'application/json'
+  //         },
+  //         body: JSON.stringify({
+  //           reactedUserId: Auth.userId
+  //         })
+  //       }
+  //     )
 
-      if (!sendRequest.ok) throw new Error('You already liked this place')
-      const responseData = await sendRequest.json()
-      setLikesAmount(responseData.place.likes)
-      setReaction(!reaction)
-    } catch (err) {
-      setIsLoading(false)
-      setIsError(err.message || 'Failed to like this place')
-    }
-    setIsLoading(false)
-  }
+  //     if (!sendRequest.ok) throw new Error('You already liked this place')
+  //     const responseData = await sendRequest.json()
+  //     setLikesAmount(responseData.place.likes)
+  //     setReaction(!reaction)
+  //   } catch (err) {
+  //     setIsLoading(false)
+  //     setIsError(err.message || 'Failed to like this place')
+  //   }
+  //   setIsLoading(false)
+  // }
 
-  const detailsButtonHandler = () => {
-    history.push(`/place/${props.id}`)
-  }
+  // const detailsButtonHandler = () => {
+  //   history.push(`/place/${props.id}`)
+  // }
 
   return (
     <Fragment>
@@ -135,10 +135,10 @@ const PlaceItem = (props) => {
                 <h1>{props.title}</h1>
                 <h2>{props.address}</h2>
                 <h3 style={{ color: 'white', marginBottom: '2rem' }}>
-                  {likesAmount} {likesAmount > 1 ? 'visitors' : 'visitor'} likes
+                  {likesAmount} {likesAmount > 1 ? 'visitors' : 'visitor'} liked
                   this place!
                 </h3>
-                <Button onClick={detailsButtonHandler}>DETAILS</Button>
+                {/* <Button onClick={detailsButtonHandler}>DETAILS</Button> */}
               </div>
             </div>
 
@@ -147,7 +147,7 @@ const PlaceItem = (props) => {
                 SHOW COORDINATES
               </Button>
 
-              {Auth.isLoggedIn && !reaction && (
+              {/* {Auth.isLoggedIn && !reaction && (
                 <Button inverse onClick={reactionHandler}>
                   LIKE [{likesAmount}]
                 </Button>
@@ -156,7 +156,7 @@ const PlaceItem = (props) => {
                 <Button inverse onClick={reactionHandler}>
                   DISLIKE [{likesAmount}]
                 </Button>
-              )}
+              )} */}
 
               {props.showControllers && (
                 <React.Fragment>

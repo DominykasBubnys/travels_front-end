@@ -36,16 +36,16 @@ const PlaceList = (props) => {
     })
     .map((place) => (
       <PlaceItem
-        key={place._id}
-        id={place._id}
+        key={place.id}
+        id={place.id}
         image={place.image}
         title={place.title}
         description={place.description}
         address={place.address}
-        creatorId={place.creator}
-        coordinates={place.location}
+        // creatorId={place.creator}
+        // coordinates={place.location}
         likes={place.likes}
-        isLikedByYou={place.likedBy.includes(User.userId)}
+        // isLikedByYou={place.likedBy.includes(User.userId)}
         showControllers={props.userControllers === User.userId}
         onDelete={props.onDeletePlace}
         onReload={reloadHandler}

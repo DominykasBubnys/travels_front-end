@@ -84,9 +84,9 @@ const PlaceItem = (props) => {
   //   setIsLoading(false)
   // }
 
-  // const detailsButtonHandler = () => {
-  //   history.push(`/place/${props.id}`)
-  // }
+  const detailsButtonHandler = () => {
+    history.push(`/place/${props.id}`)
+  }
 
   return (
     <Fragment>
@@ -138,7 +138,7 @@ const PlaceItem = (props) => {
                   {likesAmount} {likesAmount > 1 ? 'visitors' : 'visitor'} liked
                   this place!
                 </h3>
-                {/* <Button onClick={detailsButtonHandler}>DETAILS</Button> */}
+                <Button onClick={detailsButtonHandler}>DETAILS</Button>
               </div>
             </div>
 

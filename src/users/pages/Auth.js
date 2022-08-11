@@ -74,10 +74,10 @@ const Auth = () => {
     event.preventDefault();
 
     if(isLoginMode){ // for loging in
-      console.log('login form was submited')
+
       try{
         setIsLoading(true);
-        const response = await fetch(`http://localhost:8000/api/auth/login`, {
+        const response = await fetch(`http://localhost:8000/api/login`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
@@ -88,60 +88,14 @@ const Auth = () => {
           })
         })
 
+        if(!response.ok) throw new Error('unexpected error. Please try again');
+
         const responseData = await response.json();
 
-        if(!response.ok)throw new Error(responseData.message);
+        if(!responseData.status)throw new Error(responseData.message);
 
-        console.log("login result: ", responseData)
+        auth.login(responseData.user.id);
 
-        // auth.login(responseData.user._id);
-        setIsLoading(false);
-        // history.push("/");
-
-
-      }catch(err){
-        setError(err.message || "Something went wrong, please try again..");
-        setIsLoading(false)
-      }
-
-    }else{ // if it's sign-up mode...
-      try{
-
-        setIsLoading(true);
-        const response = await fetch(`http://localhost:8000/api/auth/login`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            name: formState.inputs.name.value,
-            email: formState.inputs.email.value,
-            password: formState.inputs.password.value,
-          })
-        })
-        // await fetch(`${process.env.REACT_APP_BACKEND_URL}/users/sign-up`, {
-        //   method: "POST",
-        //   headers: {
-        //     "Content-Type": "application/json"
-        //   },
-        //   body: JSON.stringify({
-        //     name: formState.inputs.name.value,
-        //     email: formState.inputs.email.value,
-        //     password: formState.inputs.password.value,
-        //   })
-        // })
-        
-        if(!response.ok){
-          throw new Error("responseData.message");
-        }
-        const responseData = await response.json();
-
-        
-
-        console.log("res: ", responseData)
-
-
-        auth.login(responseData.user._id);
         setIsLoading(false);
         history.push("/");
 
@@ -150,7 +104,45 @@ const Auth = () => {
         setError(err.message || "Something went wrong, please try again..");
         setIsLoading(false)
       }
+
     }
+    //else{ // if it's sign-up mode...
+    //   try{
+
+    //     setIsLoading(true);
+    //     const response = await fetch(`http://localhost:8000/api/auth/sign_up`, {
+    //       method: "POST",
+    //       headers: {
+    //         "Content-Type": "application/json"
+    //       },
+    //       body: JSON.stringify({
+    //         name: formState.inputs.name.value,
+    //         email: formState.inputs.email.value,
+    //         password: formState.inputs.password.value,
+    //       })
+    //     })
+
+        
+    //     if(!response.ok){
+    //       throw new Error("responseData.message");
+    //     }
+    //     const responseData = await response.json();
+
+        
+
+    //     console.log("res: ", responseData)
+
+
+    //     auth.login(responseData.user._id);
+    //     setIsLoading(false);
+    //     history.push("/");
+
+
+    //   }catch(err){
+    //     setError(err.message || "Something went wrong, please try again..");
+    //     setIsLoading(false)
+    //   }
+    // }
   };
 
   const errorHandler = () => {

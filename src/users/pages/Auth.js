@@ -73,10 +73,11 @@ const Auth = () => {
   const authSubmitHandler = async event => {
     event.preventDefault();
 
-    if(isLoginMode){
+    if(isLoginMode){ // for loging in
+      console.log('login form was submited')
       try{
         setIsLoading(true);
-        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/users/login`, {
+        const response = await fetch(`http://localhost:8000/api/auth/login`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
@@ -86,13 +87,16 @@ const Auth = () => {
             password: formState.inputs.password.value,
           })
         })
+
         const responseData = await response.json();
 
         if(!response.ok)throw new Error(responseData.message);
 
-        auth.login(responseData.user._id);
+        console.log("login result: ", responseData)
+
+        // auth.login(responseData.user._id);
         setIsLoading(false);
-        history.push("/");
+        // history.push("/");
 
 
       }catch(err){
@@ -104,7 +108,7 @@ const Auth = () => {
       try{
 
         setIsLoading(true);
-        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/users/sign-up`, {
+        const response = await fetch(`http://localhost:8000/api/auth/login`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
@@ -115,11 +119,26 @@ const Auth = () => {
             password: formState.inputs.password.value,
           })
         })
+        // await fetch(`${process.env.REACT_APP_BACKEND_URL}/users/sign-up`, {
+        //   method: "POST",
+        //   headers: {
+        //     "Content-Type": "application/json"
+        //   },
+        //   body: JSON.stringify({
+        //     name: formState.inputs.name.value,
+        //     email: formState.inputs.email.value,
+        //     password: formState.inputs.password.value,
+        //   })
+        // })
+        
+        if(!response.ok){
+          throw new Error("responseData.message");
+        }
         const responseData = await response.json();
 
-        if(!response.ok){
-          throw new Error(responseData.message);
-        }
+        
+
+        console.log("res: ", responseData)
 
 
         auth.login(responseData.user._id);
@@ -165,6 +184,7 @@ const Auth = () => {
             id="email"
             type="email"
             label="E-Mail"
+            name="email"
             validators={[VALIDATOR_EMAIL()]}
             errorText="Please enter a valid email address."
             onInput={inputHandler}
@@ -174,6 +194,7 @@ const Auth = () => {
             id="password"
             type="password"
             label="Password"
+            name="password"
             validators={[VALIDATOR_MINLENGTH(5)]}
             errorText="Please enter a valid password, at least 5 characters."
             onInput={inputHandler}

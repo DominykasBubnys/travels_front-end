@@ -55,25 +55,32 @@ const NewPlace = () => {
 
     try{
 
-      const kazkas = await fetch(`${process.env.REACT_APP_BACKEND_URL}/add-place`, {
+      const Req = await fetch(`http://127.0.0.1:8000/api/places/new`, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type" : "application/json",
+          "accept" : "application/json"
         },
         body: JSON.stringify({
-          creator: Auth.userId,
-          image: formState.inputs.image.value,
           title: formState.inputs.title.value,
           description: formState.inputs.description.value,
+          image: formState.inputs.image.value,
           address: formState.inputs.address.value,
-          latitude: 123,
-          longitude: 456,
+          likes: 0,
+          // latitude: 123,
+          // longitude: 456,
+          // user_id: 1,//Auth.userId,
         })
       })
 
-      if(!kazkas.ok){
+      if(!Req.ok){
         throw new Error("failed to post new place");
       }
+
+      const reqBody = await Req.json();
+
+      console.log("added place => result: ", reqBody);
+
 
       setIsLoading(false);
 
@@ -129,7 +136,8 @@ const NewPlace = () => {
           errorText="Please enter a valid address."
           onInput={inputHandler}
         />
-        <Button type="submit" disabled={!formState.isValid}>
+        <Button type="submit" >
+          {/* disabled={!formState.isValid}> */}
           ADD PLACE
         </Button>
       </form>}

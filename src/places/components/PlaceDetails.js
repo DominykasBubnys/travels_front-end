@@ -12,38 +12,38 @@ const PlaceDetails = () => {
   const pid = useParams().placeId
   const [isError, setIsError] = useState(null)
   const [loadedPlace, setLoadedPlace] = useState(null)
-  const [showReactions, setShowReactions] = useState(false)
-  const [reactedUsersList, setReactedUsersList] = useState(null)
+  // const [showReactions, setShowReactions] = useState(false)
+  // const [reactedUsersList, setReactedUsersList] = useState(null)
   const [isloading, setIsLoading] = useState(false)
 
-  const getUsersByIds = async (ids) => {
-    const usersArray = []
+  // const getUsersByIds = async (ids) => {
+  //   const usersArray = []
 
-    try {
-      for (let i = 0; i < ids.length; i++) {
-        const reactedUserRequest = await fetch(
-          `${process.env.REACT_APP_BACKEND_URL}/user/${ids[i]}`
-        )
-        if (!reactedUserRequest.ok)
-          throw new Error('Cannot fetch users who likes this place')
-        const reactedUsers = await reactedUserRequest.json()
-        usersArray.push(reactedUsers.user)
-      }
-    } catch (err) {
-      setIsError(err.message || 'Cannot fetch users who likes this place')
-    }
+  //   try {
+  //     for (let i = 0; i < ids.length; i++) {
+  //       const reactedUserRequest = await fetch(
+  //         `${process.env.REACT_APP_BACKEND_URL}/user/${ids[i]}`
+  //       )
+  //       if (!reactedUserRequest.ok)
+  //         throw new Error('Cannot fetch users who likes this place')
+  //       const reactedUsers = await reactedUserRequest.json()
+  //       usersArray.push(reactedUsers.user)
+  //     }
+  //   } catch (err) {
+  //     setIsError(err.message || 'Cannot fetch users who likes this place')
+  //   }
 
-    return usersArray
-  }
+  //   return usersArray
+  // }
 
   useEffect(() => {
     const loadPlaces = async () => {
       try {
         setIsLoading(true)
-        setReactedUsersList(true)
+        // setReactedUsersList(true)
 
         const request = await fetch(
-          `${process.env.REACT_APP_BACKEND_URL}/place/${pid}`
+          `http://localhost:8000/places/${pid}`
         )
 
         if (!request.ok) throw new Error('Cannot get data about this place')
@@ -52,14 +52,14 @@ const PlaceDetails = () => {
 
         setLoadedPlace(responseData.place)
 
-        const reactedIds = await responseData.place.likedBy
+        // const reactedIds = await responseData.place.likedBy
 
-        if (!reactedIds)
-          throw new Error('Cannot fetch users ids who likes this place')
+        // if (!reactedIds)
+        //   throw new Error('Cannot fetch users ids who likes this place')
 
-        const usersList = await getUsersByIds(reactedIds)
+        // const usersList = await getUsersByIds(reactedIds)
 
-        setReactedUsersList(usersList)
+        // setReactedUsersList(usersList)
         setIsLoading(false)
       } catch (err) {
         setIsLoading(false)
@@ -70,22 +70,22 @@ const PlaceDetails = () => {
     loadPlaces()
   }, [])
 
-  const changeReactionsHandler = () => {
-    setShowReactions(!showReactions)
-  }
+  // const changeReactionsHandler = () => {
+  //   setShowReactions(!showReactions)
+  // }
 
   const onErrorClear = () => {
     setIsError(null)
     history.push('/')
   }
 
-  const linkToAuthorPage = () => {
-    history.push(`/user/${loadedPlace.creator}`)
-  }
+  // const linkToAuthorPage = () => {
+  //   history.push(`/user/${loadedPlace.creator}`)
+  // }
 
-  const linkToReactedUserProfile = (uid) => {
-    history.push(`/user/${uid}`)
-  }
+  // const linkToReactedUserProfile = (uid) => {
+  //   history.push(`/user/${uid}`)
+  // }
 
   return (
     <React.Fragment>
@@ -116,7 +116,7 @@ const PlaceDetails = () => {
               <Button onClick={() => history.push('/')}>Back</Button>
             </div>
 
-            <div>
+            {/* <div>
               <Button onClick={linkToAuthorPage}>Auth page</Button>
             </div>
 
@@ -138,7 +138,7 @@ const PlaceDetails = () => {
                   ))}
                 </div>
               )}
-            </div>
+            </div> */}
           </div>
         </div>
       )}

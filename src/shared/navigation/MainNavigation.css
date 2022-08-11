@@ -10,6 +10,31 @@
   cursor: pointer;
 }
 
+.extra-header{
+  color: aliceblue;
+  position: relative;
+  top: 5.4rem;
+  height: 20vh;
+  background-color: black;
+  display: flex;
+  justify-content: center;
+}
+
+.air_header{
+  width: 50%;
+  text-align: center;
+ align-self: center;
+}
+
+.air_logo{
+  background-image: url("../assets/plane_logo.jpg");
+  width: 20%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  opacity: 0.3;
+}
+
 .main-navigation__menu-btn span {
   display: block;
   width: 4rem;
@@ -52,5 +77,13 @@
     letter-spacing: 3px;
     font-weight: 100;
     margin-left: 2rem;
+  }
+
+  .extra-header{
+    justify-content:space-between;
+  }
+
+  .air_logo{
+    margin-right: 15%;
   }
 }

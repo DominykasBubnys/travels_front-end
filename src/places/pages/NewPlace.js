@@ -55,6 +55,8 @@ const NewPlace = () => {
 
     try{
 
+      console.log("author in react: ", Auth)
+
       const Req = await fetch(`http://127.0.0.1:8000/api/places/new`, {
         method: "POST",
         headers: {
@@ -67,9 +69,7 @@ const NewPlace = () => {
           image: formState.inputs.image.value,
           address: formState.inputs.address.value,
           likes: 0,
-          // latitude: 123,
-          // longitude: 456,
-          // user_id: 1,//Auth.userId,
+          author_id: Auth.userId,
         })
       })
 
@@ -79,15 +79,18 @@ const NewPlace = () => {
 
       const reqBody = await Req.json();
 
+      if(!reqBody.status) throw new Error(reqBody.message[0])
+
       console.log("added place => result: ", reqBody);
 
 
       setIsLoading(false);
 
-      history.push("/");
+      // history.push("/");
 
 
     }catch(err){
+      console.log('erroras: ', err)
       setIsError(err.message);
     }
 
@@ -97,7 +100,9 @@ const NewPlace = () => {
     <React.Fragment>
       <ErrorModal error={isError} onClear={errorCloseModal} />
       {isLoading && <LoadingSpinner asOverlay/>}
-      {!isLoading && <form className="place-form" onSubmit={placeSubmitHandler}>
+      
+      {!isLoading && 
+      <form className="place-form" onSubmit={placeSubmitHandler}>
         <Input
           id="title"
           element="input"

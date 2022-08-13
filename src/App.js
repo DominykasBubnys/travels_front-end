@@ -20,6 +20,8 @@ import Logout from './users/pages/Logout'
 import Footer from './shared/Footer/footer'
 
 function App() {
+
+  console.log("hey from auth");
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [userId, setUserId] = useState(null)
 

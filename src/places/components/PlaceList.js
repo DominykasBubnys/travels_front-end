@@ -10,6 +10,7 @@ const PlaceList = (props) => {
   const [reload, setReload] = useState(false)
   const [searchTerm, setSearchTerm] = useState('')
   const User = useContext(AuthContext)
+  const placesAuthId = parseInt(props.placesAuthId);
 
   const reloadHandler = () => {
     setReload(!reload)
@@ -42,11 +43,9 @@ const PlaceList = (props) => {
         title={place.title}
         description={place.description}
         address={place.address}
-        // creatorId={place.creator}
-        // coordinates={place.location}
         likes={place.likes}
         // isLikedByYou={place.likedBy.includes(User.userId)}
-        showControllers={props.userControllers === User.userId}
+        showControllers={placesAuthId === parseInt(User.userId)}
         onDelete={props.onDeletePlace}
         onReload={reloadHandler}
       />

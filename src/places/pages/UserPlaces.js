@@ -10,7 +10,7 @@ const UserPlaces = () => {
   const [data, setData] = useState(null)
   const [isDeleted, setIsDeleted] = useState(false)
 
-  const userId = useParams().userId
+  const {userId} = useParams()
 
   const errorCloseHandler = () => {
     setIsError(null)
@@ -21,12 +21,13 @@ const UserPlaces = () => {
       try {
         let request
         if (userId){
+          console.log("userID: ", userId)
+
           request = await fetch(
-            `http://localhost:8000/user-places/${userId}`
+            `http://localhost:8000/places/user/${userId}`
           )
         }
           
-        //else request = await fetch(`${process.env.REACT_APP_BACKEND_URL}`)
         else request = await fetch('http://localhost:8000/places');
 
         if (!request.ok){
@@ -36,6 +37,8 @@ const UserPlaces = () => {
           )
         }
         const responseData = await request.json();
+
+        console.log("response: ", responseData.places)
 
         setData(responseData.places)
       } catch (err) {
@@ -64,9 +67,8 @@ const UserPlaces = () => {
       <ErrorModal error={isError} onClear={errorCloseHandler} />
       {!isLoading && data && (
         <PlaceList
-          userId={userId}
+          placesAuthId={userId}
           onDeletePlace={deletePlaceHandler}
-          userControllers={userId}
           items={data}
         />
       )}

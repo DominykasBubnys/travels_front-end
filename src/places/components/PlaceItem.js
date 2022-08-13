@@ -88,6 +88,8 @@ const PlaceItem = (props) => {
     history.push(`/place/${props.id}`)
   }
 
+  console.log("Placeitem ? controllers: ", props.showControllers);
+
   return (
     <Fragment>
       <ErrorModal error={isError} onClear={closeErrorModal} />

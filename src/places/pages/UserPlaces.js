@@ -22,7 +22,7 @@ const UserPlaces = () => {
         let request
         if (userId){
           request = await fetch(
-            `${process.env.REACT_APP_BACKEND_URL}/user-places/${userId}`
+            `http://localhost:8000/user-places/${userId}`
           )
         }
           

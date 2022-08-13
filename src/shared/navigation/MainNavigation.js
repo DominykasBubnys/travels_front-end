@@ -41,10 +41,6 @@ const MainNavigation = props => {
         </nav>
         
       </MainHeader>
-      <div className="extra-header">
-        <h1 className='air_header'>Plan your trip!</h1>
-        <div className='air_logo'></div>
-      </div>
     </React.Fragment>
   );
 };

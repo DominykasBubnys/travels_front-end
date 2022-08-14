@@ -36,18 +36,18 @@ const PlaceItem = (props) => {
 
     try {
       const sendRequest = await fetch(
-        `${process.env.REACT_APP_BACKEND_URL}/delete-place/${props.id}`,
-        {
-          method: 'DELETE',
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        }
+        `http://localhost:8000/api/places/delete/${props.id}`,
       )
 
       if (!sendRequest.ok) throw new Error('Cannot delete this place')
 
+      const requestData = await sendRequest.json();
+
+      if(!requestData.status)throw new Error(requestData.message)
+
       props.onDelete(props.id)
+      history.push(`/`)
+
     } catch (err) {
       setIsError('Cannot delete place with provided ID')
     }

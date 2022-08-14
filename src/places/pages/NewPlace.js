@@ -46,7 +46,7 @@ const NewPlace = () => {
 
   const errorCloseModal = () => {
     setIsError(null);
-    history.push("/")
+    setIsLoading(false);
   }
 
   const placeSubmitHandler = async event => {
@@ -54,8 +54,6 @@ const NewPlace = () => {
     setIsLoading(true);
 
     try{
-
-      console.log("author in react: ", Auth)
 
       const Req = await fetch(`http://127.0.0.1:8000/api/places/new`, {
         method: "POST",
@@ -86,11 +84,10 @@ const NewPlace = () => {
 
       setIsLoading(false);
 
-      // history.push("/");
+      history.push("/");
 
 
     }catch(err){
-      console.log('erroras: ', err)
       setIsError(err.message);
     }
 

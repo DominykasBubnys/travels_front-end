@@ -19,6 +19,7 @@ const UserPlaces = () => {
   useEffect(() => {
     const loadData = async () => {
       try {
+        setIsLoading(true)
         let request
         if (userId){
           request = await fetch(

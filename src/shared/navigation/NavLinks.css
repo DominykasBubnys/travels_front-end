@@ -24,14 +24,26 @@
   border-radius: 30px;
 }
 
-.nav-links a:hover,
-.nav-links a:active,
-.nav-links a.active {
+.nav-links .hover_change-color a:hover,
+.nav-links .hover_change-color a:active,
+.nav-links .hover_change-color a.active {
   background-color: rgb(68, 17, 17);
   border-color: #292929;
   color: antiquewhite;
   border: none;
 }
+
+.auth-logo img{
+  width: 3rem;
+  border-radius: 40%;
+  transition-duration: 0.4s;
+}
+
+.auth-logo img:hover{
+  width: 4.4rem;
+  border-radius: 40%;
+}
+
 
 .nav-links button {
   cursor: pointer;
@@ -55,6 +67,10 @@
 @media (min-width: 1000px) {
   .nav-links {
     flex-direction: row;
+  }
+
+  .side-menu{
+    display: none;
   }
 
   .nav-links li {

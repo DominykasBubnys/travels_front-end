@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-
+import SideMenu from "./SideMenu"
 import MainHeader from './MainHeader';
 import NavLinks from './NavLinks';
 import SideDrawer from './SideDrawer';
@@ -23,7 +23,7 @@ const MainNavigation = props => {
       {drawerIsOpen && <Backdrop onClick={closeDrawerHandler} />}
       <SideDrawer show={drawerIsOpen} onClick={closeDrawerHandler}>
         <nav className="main-navigation__drawer-nav">
-          <NavLinks />
+          <NavLinks extra={true} />
         </nav>
       </SideDrawer>
 
@@ -36,11 +36,15 @@ const MainNavigation = props => {
         <h1 className="main-navigation__title">
           <Link to="/">All Places</Link>
         </h1>
+
+
         <nav className="main-navigation__header-nav">
-          <NavLinks />
+          <NavLinks extra={false}/>
         </nav>
         
       </MainHeader>
+      <SideMenu />
+
     </React.Fragment>
   );
 };

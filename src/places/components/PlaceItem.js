@@ -18,6 +18,10 @@ const PlaceItem = (props) => {
   const [isError, setIsError] = useState(null)
   const [reaction, setReaction] = useState(props.isLikedByYou)
   const [likesAmount, setLikesAmount] = useState(props.likes)
+
+
+  console.log("active user: ", Auth);
+
   const openMapHandler = () => setShowMap(true)
 
   const closeMapHandler = () => setShowMap(false)
@@ -58,31 +62,9 @@ const PlaceItem = (props) => {
     setIsError(null)
   }
 
-  // const reactionHandler = async () => {
-  //   try {
-  //     const sendRequest = await fetch(
-  //       `${process.env.REACT_APP_BACKEND_URL}/liked-place/${props.id}`,
-  //       {
-  //         method: 'POST',
-  //         headers: {
-  //           'Content-Type': 'application/json'
-  //         },
-  //         body: JSON.stringify({
-  //           reactedUserId: Auth.userId
-  //         })
-  //       }
-  //     )
-
-  //     if (!sendRequest.ok) throw new Error('You already liked this place')
-  //     const responseData = await sendRequest.json()
-  //     setLikesAmount(responseData.place.likes)
-  //     setReaction(!reaction)
-  //   } catch (err) {
-  //     setIsLoading(false)
-  //     setIsError(err.message || 'Failed to like this place')
-  //   }
-  //   setIsLoading(false)
-  // }
+  const reactionHandler = async () => {
+    
+  }
 
   const detailsButtonHandler = () => {
     history.push(`/place/${props.id}`)
@@ -144,20 +126,39 @@ const PlaceItem = (props) => {
             </div>
 
             <div className="place-item__actions">
-              <Button inverse onClick={openMapHandler}>
-                SHOW COORDINATES
-              </Button>
 
               {/* {Auth.isLoggedIn && !reaction && (
-                <Button inverse onClick={reactionHandler}>
-                  LIKE [{likesAmount}]
-                </Button>
+                // <Button inverse onClick={reactionHandler}>
+                //   LIKE [{likesAmount}]
+                // </Button>
+                <img src='like_logo.png' className='actions_logo' alt='like'/>
               )}
               {Auth.isLoggedIn && reaction && (
-                <Button inverse onClick={reactionHandler}>
-                  DISLIKE [{likesAmount}]
+                // <Button inverse onClick={reactionHandler}>
+                //   DISLIKE [{likesAmount}]
+                // </Button>
+                <img src='liked_logo.png' className='actions_logo' alt='like'/>
+
+              )}
+
+               */}
+              
+
+              { Auth.isLoggedIn && !props.showControllers ?
+
+                <div className='actions-div'>
+                  {!reaction && <img onClick={reactionHandler} src='like_logo.png' className='actions_logo' alt='like'/>}
+                  {reaction && <img onClick={reactionHandler} src='liked_logo.png' className='actions_logo' alt='like'/>}
+                  {<img src='comment_logo.png' className='actions_logo' alt='comment'/>}
+                  <img src='location_logo.png' className='actions_logo' alt='location'/>
+                </div>
+
+                :
+
+                <Button inverse onClick={openMapHandler}>
+                  VIEW ON MAP
                 </Button>
-              )} */}
+              }
 
               {props.showControllers && (
                 <React.Fragment>

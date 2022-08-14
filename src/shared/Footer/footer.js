@@ -14,12 +14,12 @@ const Footer = (props) => {
   }
 
   return (
-    <div className={`footer-div ${!Auth.isLoggedIn && 'footer-div-logout'}`}>
-      {Auth.isLoggedIn && (
+    <div className={`footer-div ${'footer-div-logout'}`}>
+      {/* {Auth.isLoggedIn && (
         <Button onClick={onCLickHandler} inverse>
           PROFILE
         </Button>
-      )}
+      )} */}
     </div>
   )
 }

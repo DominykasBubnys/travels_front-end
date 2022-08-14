@@ -1,7 +1,7 @@
-.modal {
+.modal_container {
   z-index: 100;
   position: fixed;
-  top: 22vh;
+  top: 10vh;
   left: 10%;
   width: 80%;
   background: rgb(12, 12, 12);
@@ -11,14 +11,21 @@
   color: rgb(153, 115, 115);
   font-size: 1.3rem;
   text-align: center;
+  max-height: 80vh;
 }
+
+
 
 .modal__header {
   text-align: center;
   width: 100%;
   padding: 1rem 0.5rem;
+  color: #ffe4c4;
+  background: #23232349;
+}
+
+.error{
   background: brown;
-  color: white;
 }
 
 .modal__header h2 {

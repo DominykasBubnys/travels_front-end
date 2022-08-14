@@ -20,14 +20,14 @@ const SideMenu = () => {
       </li>
 
       <li className='side-menu-nav'>
-        <NavLink to="/new-trip" exact>
+        <NavLink to="/forum" exact>
           <img src='forum_logo.png' alt='forum'/>
         </NavLink>
       </li>
 
       { User.isLoggedIn &&
         <li className='side-menu-nav'>
-          <NavLink to={`/user/${User.userId}`} exact>
+          <NavLink to={`/profile`} exact>
             <img src='auth_logo.png' alt='forum'/>
           </NavLink>
         </li>

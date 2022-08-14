@@ -33,7 +33,7 @@ const NavLinks = props => {
     }
 
     <li className='hover_change-color side-menu'>
-      <NavLink to="/forum" exact>PROFILE</NavLink>
+      <NavLink to="/profile" exact>PROFILE</NavLink>
     </li>
 
     <li className='hover_change-color side-menu'>

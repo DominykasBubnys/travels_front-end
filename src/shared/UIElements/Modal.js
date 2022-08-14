@@ -5,9 +5,11 @@ import { CSSTransition } from "react-transition-group";
 import { Fragment } from "react";
 
 const ModalOverlay = props => {
+    const {isError} = props;
+
     const content = (
-        <div className={`modal ${props.className}`} style={props.style}>
-            <header className={`modal__header ${props.headerClass}`}>
+        <div className={`modal_container ${props.className}`}>
+            <header className={`modal__header ${isError && 'error'}`}>
                 <h2>{props.header}</h2>
             </header>
 
@@ -34,7 +36,6 @@ const Modal = props => {
             mountOnEnter
             unmountOnExit
             timeout={300}
-            classNames="modal"
         >
             <ModalOverlay {...props} />
         </CSSTransition>

@@ -18,12 +18,14 @@ import UserDetails from './users/components/UserDetails'
 import PlaceDetails from './places/components/PlaceDetails'
 import Logout from './users/pages/Logout'
 import Footer from './shared/Footer/footer'
+import ForumPage from "./forum/ForumPage";
 
 function App() {
 
-  console.log("hey from auth");
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [userId, setUserId] = useState(null)
+
+  console.log("islogged in? ", isLoggedIn)
 
   const login = useCallback((uid) => {
     setIsLoggedIn(true)
@@ -43,6 +45,9 @@ function App() {
         <Route path="/" exact>
           <UserPlaces />
         </Route>
+        <Route path='/forum'>
+          <ForumPage />
+        </Route>
         <Route path="/:userId/places" exact>
           <UserPlaces />
         </Route>
@@ -57,7 +62,7 @@ function App() {
           {' '}
           <User />
         </Route>
-        <Route path="/user/:uid">
+        <Route path="/profile">
           <UserDetails />
         </Route>
         <Route path="/place/:placeId">
@@ -95,6 +100,9 @@ function App() {
         <Route path="/auth">
           {' '}
           <Auth />
+        </Route>
+        <Route path='/forum'>
+          <ForumPage />
         </Route>
         <Redirect to="/" />
       </Switch>

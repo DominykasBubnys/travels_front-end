@@ -21,8 +21,6 @@ const UserPlaces = () => {
       try {
         let request
         if (userId){
-          console.log("userID: ", userId)
-
           request = await fetch(
             `http://localhost:8000/places/user/${userId}`
           )
@@ -38,7 +36,6 @@ const UserPlaces = () => {
         }
         const responseData = await request.json();
 
-        console.log("response: ", responseData.places)
 
         setData(responseData.places)
       } catch (err) {

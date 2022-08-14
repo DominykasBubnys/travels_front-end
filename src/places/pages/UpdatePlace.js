@@ -48,10 +48,11 @@ const UpdatePlace = () => {
     const loadPlace = async() => {
 
       setIsLoading(true);
-      try { 
-        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/place/${placeId}`)
 
-        if(!response.ok) throw new Error("Unexpected error in server");
+      try { 
+        const response = await fetch(`http://localhost:8000/places/${placeId}`)
+
+        if(!response.ok) throw new Error(`Unexpected error in server while fetching place (id: ${placeId})`);
 
         const responseData = await response.json();
 
@@ -75,8 +76,10 @@ const UpdatePlace = () => {
         setIsLoading(false);
         
       } catch (err) {
-        console.log("error in UpdatePlace component: ", err);
-        setIsError(err.message || "Cannot load choosen place")
+
+        setIsError(err.message || "Cannot load choosen place")        
+        setIsLoading(false);
+
       } 
     }
     loadPlace();
@@ -84,21 +87,28 @@ const UpdatePlace = () => {
 
   const placeUpdateSubmitHandler = async event => {
     event.preventDefault();
+
     setIsLoading(true);
 
     try {
-      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/update-place/${placeId}`, {
-        method: "PATCH",
+      const response = await fetch(`http://127.0.0.1:8000/api/places/update/${placeId}`, {
+        method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          title: formState.inputs.title.value,
-          description: formState.inputs.description.value
+          updatedTitle: formState.inputs.title.value,
+          updatedDescription: formState.inputs.description.value,
+          pid: placeId
         })
       })
 
-      if(!response.ok) throw new Error("Cannot update this place");
+
+      if(!response.ok) throw new Error("Failed to update! Server side error");
+
+      const responseData = await response.json();
+
+      if(!responseData.status) throw new Error(responseData.message);
 
       setIsLoading(false);
 
@@ -109,15 +119,15 @@ const UpdatePlace = () => {
     
   };
 
-  if (isLoading) {
+  if (isLoading && !isError) {
     return (
       <div className="center">
-        <LoadingSpinner  />
+        <LoadingSpinner asOverlay />
       </div>
     );
   }
 
-  if (!loadedPlace) {
+  if (!loadedPlace && !isError) {
     return (
       <div className="center">
         <Card>

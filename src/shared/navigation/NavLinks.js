@@ -7,8 +7,15 @@ import './NavLinks.css';
 const NavLinks = props => {
 
   const User = useContext(AuthContext);
+  console.log("props extra: ", props.extra)
 
   return <ul className="nav-links">
+
+    <li className='hover_change-color side-menu'>
+      <NavLink to="/new-trip" exact>PLAN YOUR TRIP!</NavLink>
+    </li>
+
+
     <li className='hover_change-color'>
       <NavLink to="/users" exact>ALL USERS</NavLink>
     </li>
@@ -24,6 +31,14 @@ const NavLinks = props => {
         </li>  
         </React.Fragment>
     }
+
+    <li className='hover_change-color side-menu'>
+      <NavLink to="/forum" exact>PROFILE</NavLink>
+    </li>
+
+    <li className='hover_change-color side-menu'>
+      <NavLink to="/forum" exact>FORUM</NavLink>
+    </li>
     
     <li className='auth-logo'>
       {!User.isLoggedIn ? 

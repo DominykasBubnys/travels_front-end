@@ -1,0 +1,36 @@
+.side-menu-container{
+    width: 4rem;
+    height: 100vh;
+    position: fixed;
+    color: red;
+    text-align: center;
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    padding-top: 7vh;
+    transition-duration: 0.2s;
+}
+
+.side-menu-nav img{
+    width: 3rem;
+    margin: 1.5rem 0;
+    transition-duration: 0.2s;
+
+}
+
+.side-menu-nav img:hover {
+    width: 4rem;
+    margin: 1rem 0
+}
+
+.side-menu-container:hover{
+    width: 5rem;
+}
+
+@media (max-width: 1000px) {
+    .side-menu-container {
+      display: none;
+    }
+
+}

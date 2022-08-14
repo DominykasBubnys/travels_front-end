@@ -69,6 +69,10 @@
     flex-direction: row;
   }
 
+  .side-menu{
+    display: none;
+  }
+
   .nav-links li {
     margin: 0 0.5rem;
   }

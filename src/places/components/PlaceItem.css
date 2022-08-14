@@ -12,6 +12,14 @@
   justify-content: center;
 }
 
+.actions-div{
+  background: linear-gradient(90deg, rgba(0,0,0,0.2528361686471463) 0%, rgba(0,0,0,0.49933476808692223) 12%, rgba(0,0,0,0.7514356084230567) 25%, rgba(0,0,0,1) 40%, rgba(0,0,0,1) 50%, rgba(0,0,0,1) 60%, rgba(0,0,0,0.7458333675266982) 75%, rgba(0,0,0,0.49933476808692223) 88%, rgba(0,0,0,0.2528361686471463) 100%);
+  border-radius: 20px;
+  padding: 10px;
+  border-top: 2px solid rgb(55, 55, 55);
+
+}
+
 
 .place-item__info {
   color: #ffe4c4;
@@ -55,7 +63,13 @@
   padding: 1rem;
   text-align: center;
   margin-top: 2rem;
-  border-top: 2px solid rgb(55, 55, 55);
+  background-color: rgba(0, 0, 0, 0);
+  
+}
+
+.actions_logo{
+  width: 2.3rem;
+  margin: 0 10px;
 }
 
 .place-item__modal-content {

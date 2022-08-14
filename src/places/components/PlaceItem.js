@@ -126,20 +126,39 @@ const PlaceItem = (props) => {
             </div>
 
             <div className="place-item__actions">
-              <Button inverse onClick={openMapHandler}>
-                SHOW COORDINATES
-              </Button>
 
-              {Auth.isLoggedIn && !reaction && (
-                <Button inverse onClick={reactionHandler}>
-                  LIKE [{likesAmount}]
-                </Button>
+              {/* {Auth.isLoggedIn && !reaction && (
+                // <Button inverse onClick={reactionHandler}>
+                //   LIKE [{likesAmount}]
+                // </Button>
+                <img src='like_logo.png' className='actions_logo' alt='like'/>
               )}
               {Auth.isLoggedIn && reaction && (
-                <Button inverse onClick={reactionHandler}>
-                  DISLIKE [{likesAmount}]
-                </Button>
+                // <Button inverse onClick={reactionHandler}>
+                //   DISLIKE [{likesAmount}]
+                // </Button>
+                <img src='liked_logo.png' className='actions_logo' alt='like'/>
+
               )}
+
+               */}
+              
+
+              { Auth.isLoggedIn && !props.showControllers ?
+
+                <div className='actions-div'>
+                  {!reaction && <img onClick={reactionHandler} src='like_logo.png' className='actions_logo' alt='like'/>}
+                  {reaction && <img onClick={reactionHandler} src='liked_logo.png' className='actions_logo' alt='like'/>}
+                  {<img src='comment_logo.png' className='actions_logo' alt='comment'/>}
+                  <img src='location_logo.png' className='actions_logo' alt='location'/>
+                </div>
+
+                :
+
+                <Button inverse onClick={openMapHandler}>
+                  VIEW ON MAP
+                </Button>
+              }
 
               {props.showControllers && (
                 <React.Fragment>

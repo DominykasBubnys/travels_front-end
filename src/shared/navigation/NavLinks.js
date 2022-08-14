@@ -9,24 +9,32 @@ const NavLinks = props => {
   const User = useContext(AuthContext);
 
   return <ul className="nav-links">
-    <li>
+    <li className='hover_change-color'>
       <NavLink to="/users" exact>ALL USERS</NavLink>
     </li>
     
     {
       User.isLoggedIn && 
         <React.Fragment>
-        <li>
+        <li className='hover_change-color'>
           <NavLink to={`/${User.userId}/places`}>MY PLACES</NavLink>
         </li>
-        <li>
+        <li className='hover_change-color'>
           <NavLink to="/places/new">ADD PLACE</NavLink>
         </li>  
         </React.Fragment>
     }
     
-    <li>
-      {!User.isLoggedIn ? <NavLink to="/auth">AUTHENTICATE</NavLink> : <NavLink to="/logout">LOGOUT</NavLink>}
+    <li className='auth-logo'>
+      {!User.isLoggedIn ? 
+        <NavLink to="/auth">
+          <img src='login_logo.png' alt="login"/>
+        </NavLink> : 
+        
+        <NavLink to="/logout">
+          <img src='logout_logo.png' alt="logout"/>
+        </NavLink>
+      }
     </li>
   </ul>
 };

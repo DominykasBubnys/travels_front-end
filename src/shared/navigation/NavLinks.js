@@ -4,6 +4,10 @@ import { useContext } from 'react';
 import {AuthContext} from "../context/auth-context";
 import './NavLinks.css';
 
+// importing images
+import login_logo from "../assets/login_logo.png";
+import logout_logo from "../assets/logout_logo.png";
+
 const NavLinks = props => {
 
   const User = useContext(AuthContext);
@@ -33,7 +37,7 @@ const NavLinks = props => {
     }
 
     <li className='hover_change-color side-menu'>
-      <NavLink to="/forum" exact>PROFILE</NavLink>
+      <NavLink to="/profile" exact>PROFILE</NavLink>
     </li>
 
     <li className='hover_change-color side-menu'>
@@ -43,11 +47,11 @@ const NavLinks = props => {
     <li className='auth-logo'>
       {!User.isLoggedIn ? 
         <NavLink to="/auth">
-          <img src='login_logo.png' alt="login"/>
+          <img src={login_logo} alt="login"/>
         </NavLink> : 
         
         <NavLink to="/logout">
-          <img src='logout_logo.png' alt="logout"/>
+          <img src={logout_logo} alt="logout"/>
         </NavLink>
       }
     </li>

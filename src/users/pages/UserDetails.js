@@ -17,51 +17,51 @@ const UserDetails = () => {
   const history = useHistory()
   const UserId = useParams().uid
 
-  useEffect(() => {
-    const LoadUser = async () => {
-      setIsLoading(true)
-      try {
-        const request = await fetch(
-          `${process.env.REACT_APP_BACKEND_URL}/user/${UserId}`
-        )
-        if (!request.ok) throw new Error('Failed to get user with provided id')
-        const responseData = await request.json()
+  // useEffect(() => {
+  //   const LoadUser = async () => {
+  //     setIsLoading(true)
+  //     try {
+  //       const request = await fetch(
+  //         `${process.env.REACT_APP_BACKEND_URL}/user/${UserId}`
+  //       )
+  //       if (!request.ok) throw new Error('Failed to get user with provided id')
+  //       const responseData = await request.json()
 
-        setFetchedData(responseData.user)
-        setIsLoading(false)
-      } catch (err) {
-        setIsError(err.message || ' Cannot load particular user')
-        console.log('error in UserDetails component: ', err)
-      }
-    }
+  //       setFetchedData(responseData.user)
+  //       setIsLoading(false)
+  //     } catch (err) {
+  //       setIsError(err.message || ' Cannot load particular user')
+  //       console.log('error in UserDetails component: ', err)
+  //     }
+  //   }
 
-    LoadUser()
-  }, [])
+  //   LoadUser()
+  // }, [])
 
-  const clearErrorHandler = () => {
-    setIsError(null)
-    history.push('/')
-  }
+  // const clearErrorHandler = () => {
+  //   setIsError(null)
+  //   history.push('/')
+  // }
 
-  const backButtonHandler = () => {
-    history.push('/')
-  }
+  // const backButtonHandler = () => {
+  //   history.push('/')
+  // }
 
-  const messageButtonHandler = () => {
-    setShowMessageModal(true)
-  }
+  // const messageButtonHandler = () => {
+  //   setShowMessageModal(true)
+  // }
 
-  const messageSubmitHandler = (event) => {
-    event.preventDefault()
-  }
+  // const messageSubmitHandler = (event) => {
+  //   event.preventDefault()
+  // }
 
-  const browsePlacesButtonHandler = () => {
-    history.push(`/${fetchedData._id}/places`)
-  }
+  // const browsePlacesButtonHandler = () => {
+  //   history.push(`/${fetchedData._id}/places`)
+  // }
 
   return (
     <React.Fragment>
-      {<ErrorModal error={isError} onClear={clearErrorHandler} />}
+      {/* {<ErrorModal error={isError} onClear={clearErrorHandler} />}
       {isLoading && <LoadingSpinner asOverlay />}
 
       <Modal
@@ -92,7 +92,12 @@ const UserDetails = () => {
             <Button onClick={backButtonHandler}>Back</Button>
           </div>
         </div>
-      )}
+      )} */}
+      <div style={{ width:600, paddingTop: 150, backgroundColor: "green", textAlign:"center" }}>
+              <h1 style={{ color:"white" }}>labas</h1>
+              <img src='like_logo.png' />
+
+      </div>
     </React.Fragment>
   )
 }

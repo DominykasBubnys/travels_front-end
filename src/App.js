@@ -14,16 +14,18 @@ import MainNavigation from './shared/navigation/MainNavigation'
 import UserPlaces from './places/pages/UserPlaces'
 import UpdatePlace from './places/pages/UpdatePlace'
 import { AuthContext } from './shared/context/auth-context'
-import UserDetails from './users/components/UserDetails'
-import PlaceDetails from './places/components/PlaceDetails'
+import UserDetails from './users/pages/UserDetails'
+import PlaceDetails from './places/pages/PlaceDetails'
 import Logout from './users/pages/Logout'
 import Footer from './shared/Footer/footer'
+import ForumPage from "./forum/ForumPage";
 
 function App() {
 
-  console.log("hey from auth");
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [userId, setUserId] = useState(null)
+
+  // console.log("islogged in? ", isLoggedIn)
 
   const login = useCallback((uid) => {
     setIsLoggedIn(true)
@@ -43,6 +45,9 @@ function App() {
         <Route path="/" exact>
           <UserPlaces />
         </Route>
+        <Route path='/forum'>
+          <ForumPage />
+        </Route>
         <Route path="/:userId/places" exact>
           <UserPlaces />
         </Route>
@@ -57,7 +62,7 @@ function App() {
           {' '}
           <User />
         </Route>
-        <Route path="/user/:uid">
+        <Route path="/profile">
           <UserDetails />
         </Route>
         <Route path="/place/:placeId">
@@ -86,7 +91,7 @@ function App() {
           <UserDetails />
         </Route>
         <Route path="/place/:placeId">
-          <PlaceDetails />
+        <PlaceDetails />
         </Route>
         <Route path="/users">
           {' '}
@@ -95,6 +100,9 @@ function App() {
         <Route path="/auth">
           {' '}
           <Auth />
+        </Route>
+        <Route path='/forum'>
+          <ForumPage />
         </Route>
         <Redirect to="/" />
       </Switch>

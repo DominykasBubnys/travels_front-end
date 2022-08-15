@@ -1,12 +1,13 @@
 import React from 'react';
 import './Avatar.css';
+import default_logo from "../assets/1.jpg"
 
 const Avatar = props => {
 
   return (
     <div className={`avatar ${props.className}`} style={props.style}>
       <img
-        src={props.src? props.src :(require(`../assets/1.jpg`).default)}
+        src={default_logo}
         alt={props.alt}
         style={{ width: props.width, height: props.width }}
       />

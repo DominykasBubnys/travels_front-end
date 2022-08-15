@@ -7,6 +7,9 @@ import LoadingSpinner from '../../shared/UIElements/LoadingSpinner'
 import { useHistory } from 'react-router-dom'
 import classes from './PlaceDetails.module.css'
 
+// Images
+import like_logo from "../../shared/assets/like_logo.png"
+
 const PlaceDetails = () => {
   const history = useHistory()
   const pid = useParams().placeId
@@ -79,9 +82,9 @@ const PlaceDetails = () => {
     history.push('/')
   }
 
-  // const linkToAuthorPage = () => {
-  //   history.push(`/user/${loadedPlace.creator}`)
-  // }
+  const linkToAuthorPage = () => {
+    history.push("/profile")//push(`/user/${loadedPlace.creator}`)
+  }
 
   // const linkToReactedUserProfile = (uid) => {
   //   history.push(`/user/${uid}`)
@@ -89,8 +92,10 @@ const PlaceDetails = () => {
 
   return (
     <React.Fragment>
+
       {isloading && <LoadingSpinner asOverlay />}
       <ErrorModal error={isError} onClear={onErrorClear} />
+
       {!isloading && loadedPlace && (
         <div className={classes.container}>
           <h1 className={classes.detailsTitle}>{loadedPlace.title}</h1>
@@ -105,41 +110,32 @@ const PlaceDetails = () => {
               <p>{loadedPlace.description}</p>
             </div>
           </div>
+          
+          <div>
+            <src src={like_logo} />
+          </div>
+
+          {/* 
 
           <div className={classes.address}>
             <h1>Address</h1>
             <p>{loadedPlace.address}</p>
           </div>
 
-          <div className={classes.extra}>
+          <div className={classes.scraped}>
+
+          </div>
+
+          <div className={classes.properties}>
             <div>
               <Button onClick={() => history.push('/')}>Back</Button>
             </div>
 
-            {/* <div>
+            <div>
               <Button onClick={linkToAuthorPage}>Auth page</Button>
             </div>
 
-            <div className={classes.reactionsContainer}>
-              <Button onClick={changeReactionsHandler}>
-                Likes: {loadedPlace.likedBy.length}
-              </Button>
-
-              {showReactions && reactedUsersList.length > 0 && (
-                <div className={classes.reactions}>
-                  {reactedUsersList.map((user, idx) => (
-                    <button
-                      key={idx}
-                      style={{ margin: '10px auto', border: 'none' }}
-                      onClick={linkToReactedUserProfile.bind(null, user._id)}
-                    >
-                      {user.name}
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div> */}
-          </div>
+          </div> */}
         </div>
       )}
     </React.Fragment>

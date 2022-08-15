@@ -78,12 +78,13 @@ const PlaceItem = (props) => {
         show={showMap}
         onCancel={closeMapHandler}
         header={props.address}
+        isError={false}
         contentClass="place-item__model-content"
         footerClass="place-item__modal-actions"
         footer={<Button onClick={closeMapHandler}>Close</Button>}
       >
         <div className="map-container">
-          <Map props={props} />
+          <Map lat={1.305385} lon={30.923029} />
         </div>
       </Modal>
 
@@ -150,7 +151,7 @@ const PlaceItem = (props) => {
                   {!reaction && <img onClick={reactionHandler} src='like_logo.png' className='actions_logo' alt='like'/>}
                   {reaction && <img onClick={reactionHandler} src='liked_logo.png' className='actions_logo' alt='like'/>}
                   {<img src='comment_logo.png' className='actions_logo' alt='comment'/>}
-                  <img src='location_logo.png' className='actions_logo' alt='location'/>
+                  <img onClick={openMapHandler} src='location_logo.png' className='actions_logo' alt='location'/>
                 </div>
 
                 :

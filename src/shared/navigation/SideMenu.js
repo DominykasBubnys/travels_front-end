@@ -5,6 +5,12 @@ import './NavLinks.css';
 import { useContext } from 'react';
 import {AuthContext} from "../context/auth-context";
 
+// importing images
+import auth_logo from "../assets/auth_logo.png";
+import forum_logo from "../assets/forum_logo.png";
+import plus_logo from "../assets/plus_logo.png";
+
+
 const SideMenu = () => {
 
   const User = useContext(AuthContext);
@@ -15,20 +21,20 @@ const SideMenu = () => {
       
       <li className='side-menu-nav'>
         <NavLink to="/new-trip" exact>
-          <img src='plus_logo.png' alt='forum'/>
+          <img src={plus_logo} alt='forum'/>
         </NavLink>
       </li>
 
       <li className='side-menu-nav'>
-        <NavLink to="/new-trip" exact>
-          <img src='forum_logo.png' alt='forum'/>
+        <NavLink to="/forum" exact>
+          <img src={forum_logo} alt='forum'/>
         </NavLink>
       </li>
 
       { User.isLoggedIn &&
         <li className='side-menu-nav'>
-          <NavLink to={`/user/${User.userId}`} exact>
-            <img src='auth_logo.png' alt='forum'/>
+          <NavLink to={`/profile`} exact>
+            <img src={auth_logo} alt='forum'/>
           </NavLink>
         </li>
       }

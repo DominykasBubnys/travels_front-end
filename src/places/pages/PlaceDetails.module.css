@@ -74,7 +74,7 @@
   color: black;
 }
 
-.extra {
+.properties {
   display: flex;
   flex-wrap: wrap;
   margin-bottom: 8rem;
@@ -82,7 +82,7 @@
   justify-content: space-around;
 }
 
-.extra div {
+.properties div {
   margin: 7px;
 }
 

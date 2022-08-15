@@ -25,7 +25,9 @@
 }
 
 .error{
-  background: brown;
+  background: rgb(135, 55, 55);
+  box-shadow: none;
+  border: none
 }
 
 .modal__header h2 {

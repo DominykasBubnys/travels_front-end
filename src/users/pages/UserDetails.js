@@ -93,7 +93,11 @@ const UserDetails = () => {
           </div>
         </div>
       )} */}
-      <h1>labas</h1>
+      <div style={{ width:600, paddingTop: 150, backgroundColor: "green", textAlign:"center" }}>
+              <h1 style={{ color:"white" }}>labas</h1>
+              <img src='like_logo.png' />
+
+      </div>
     </React.Fragment>
   )
 }

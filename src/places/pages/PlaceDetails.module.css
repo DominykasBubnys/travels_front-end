@@ -1,27 +1,15 @@
 .container {
-  width: 90%;
-  margin: 20vh auto;
+  width: 85%;
+  margin: 10vh auto;
   border-radius: 20px;
   color: bisque;
   text-align: center;
-  background-color: #00000019;
-  box-shadow: 0 2px 74px 0 rgb(71, 71, 71);
+  background-color: #0000000f;
+  box-shadow: inset 0 2px 74px 0 rgb(71, 71, 71);
   font-size: 2rem;
   text-shadow: 2px 2px 3px rgba(255, 255, 255, 0.1);
   padding: 3rem 0;
 
-}
-
-.main_content{
-  width: 80%;
-  margin: 5rem auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-}
-
-.description{
-  width: 50%;
 }
 
 .detailsTitle {
@@ -29,12 +17,57 @@
   margin: 10px 10px;
 }
 
+.main_content{
+  width: 85%;
+  margin: 5rem auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+
 .image {
   width: 40%;
   height: 50vh;
 }
 
-.address {
+.image img{
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+}
+
+
+.description{
+  width: 50%;
+}
+
+.reaction_container{
+  width: 100%;
+  padding: 10px 0;
+  margin: 0 auto;
+  border-bottom: 2px solid rgba(129, 111, 111, 1);
+  display: flex;
+  justify-content: space-around;
+  height: 7vh;
+  background-color: black;
+}
+
+.reaction_logo{
+  width: 10%;
+  display: flex;
+  /* height: 5vh; */
+  justify-content: space-between;
+  flex-direction: row;
+}
+.reaction_logo p{
+  margin: 0;
+  padding: 0;
+  align-self: center;
+}
+
+
+/* .address {
   background-color: rgba(34, 33, 33, 0.726);
   border-radius: 15px;
   width: 80%;
@@ -84,7 +117,7 @@
 
 .properties div {
   margin: 7px;
-}
+} */
 
 @media (max-width: 768px) {
   .container {

@@ -9,6 +9,9 @@ import classes from './PlaceDetails.module.css'
 
 // Images
 import like_logo from "../../shared/assets/like_logo.png"
+import comment_logo from "../../shared/assets/comment_logo.png"
+
+
 
 const PlaceDetails = () => {
   const history = useHistory()
@@ -89,7 +92,6 @@ const PlaceDetails = () => {
   // const linkToReactedUserProfile = (uid) => {
   //   history.push(`/user/${uid}`)
   // }
-
   return (
     <React.Fragment>
 
@@ -102,7 +104,7 @@ const PlaceDetails = () => {
 
           <div className={classes.main_content}>
             <div className={classes.image}>
-              <Avatar src={loadedPlace.image} />
+              <img src={loadedPlace.image} alt={loadedPlace.title}/>
             </div>
 
             <div className={classes.description}>
@@ -111,8 +113,16 @@ const PlaceDetails = () => {
             </div>
           </div>
           
-          <div>
-            <src src={like_logo} />
+          <div className={classes.reaction_container}>
+            <div className={classes.reaction_logo}>
+              <img src={like_logo} alt="like" />
+              <p>5</p>
+            </div>
+
+            <div className={classes.reaction_logo}>
+              <img src={comment_logo} alt="comment" />
+              <p>5</p>
+            </div>
           </div>
 
           {/* 

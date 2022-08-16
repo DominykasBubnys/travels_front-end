@@ -4,7 +4,6 @@ import Input from '../../shared/FormElements/Input';
 import Button from '../../shared/FormElements/Button';
 import LoadingSpinner from "../../shared/UIElements/LoadingSpinner";
 import ErrorModal from "../../shared/UIElements/ErrorModal";
-// import ImageUpload from "../../shared/FormElements/ImageUpload"
 import { useHistory } from "react-router-dom";
 
 
@@ -59,10 +58,10 @@ const Auth = () => {
             isValid: false
           },
 
-          // image: {
-          //   value: null,
-          //   isValid: false,
-          // }
+          country: {
+            value: '',
+            isValid: false,
+          }
         },
         false
       );
@@ -106,43 +105,45 @@ const Auth = () => {
       }
 
     }
-    //else{ // if it's sign-up mode...
-    //   try{
+    else{ // if it's sign-up mode...
+      try{
 
-    //     setIsLoading(true);
-    //     const response = await fetch(`http://localhost:8000/api/auth/sign_up`, {
-    //       method: "POST",
-    //       headers: {
-    //         "Content-Type": "application/json"
-    //       },
-    //       body: JSON.stringify({
-    //         name: formState.inputs.name.value,
-    //         email: formState.inputs.email.value,
-    //         password: formState.inputs.password.value,
-    //       })
-    //     })
+        console.log("forma: ", formState)
+
+        setIsLoading(true);
+        const response = await fetch(`http://localhost:8000/api/register`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            name: formState.inputs.name.value,
+            email: formState.inputs.email.value,
+            password: formState.inputs.password.value,
+            country: formState.inputs.country.value,
+            image: formState.inputs.photo.value,
+
+          })
+        })
 
         
-    //     if(!response.ok){
-    //       throw new Error("responseData.message");
-    //     }
-    //     const responseData = await response.json();
-
-        
-
-    //     console.log("res: ", responseData)
+        if(!response.ok) throw new Error("responseData.message");
 
 
-    //     auth.login(responseData.user._id);
-    //     setIsLoading(false);
-    //     history.push("/");
+        const responseData = await response.json();
+
+        if(!responseData.status)throw new Error(responseData.message)
+
+        auth.login(responseData.user._id);
+        setIsLoading(false);
+        history.push("/");
 
 
-    //   }catch(err){
-    //     setError(err.message || "Something went wrong, please try again..");
-    //     setIsLoading(false)
-    //   }
-    // }
+      }catch(err){
+        setError(err.message || "Something went wrong, please try again..");
+        setIsLoading(false)
+      }
+    }
   };
 
   const errorHandler = () => {
@@ -160,15 +161,39 @@ const Auth = () => {
         {/* {!isLoginMode && (<ImageUpload center id="image" onInput={inputHandler} />)} */}
 
           {!isLoginMode && (
-            <Input
-              element="input"
-              id="name"
-              type="text"
-              label="Your Name"
-              validators={[VALIDATOR_REQUIRE()]}
-              errorText="Please enter a name."
-              onInput={inputHandler}
-            />
+            <>
+              <Input
+                element="input"
+                id="name"
+                type="text"
+                label="Your Name"
+                validators={[VALIDATOR_REQUIRE()]}
+                errorText="Please enter a name."
+                onInput={inputHandler}
+              />
+
+              <Input
+                element="input"
+                id="country"
+                type="text"
+                label="Your country"
+                validators={[VALIDATOR_REQUIRE()]}
+                errorText="Please enter your coutry name."
+                onInput={inputHandler}
+              />
+
+
+              <Input
+                element="input"
+                id="photo"
+                type="text"
+                label="Your photo"
+                validators={[VALIDATOR_REQUIRE()]}
+                errorText="Please enter your photo url."
+                onInput={inputHandler}
+              />
+            </>
+            
           ) }
 
           <Input
@@ -191,7 +216,7 @@ const Auth = () => {
             errorText="Please enter a valid password, at least 5 characters."
             onInput={inputHandler}
           />
-          <Button type="submit" disabled={!formState.isValid}>
+          <Button type="submit" >
             {isLoginMode ? 'LOGIN' : 'SIGNUP'}
           </Button>
         </form>

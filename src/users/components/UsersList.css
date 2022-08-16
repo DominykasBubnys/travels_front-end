@@ -1,10 +1,13 @@
 .users-list {
   list-style: none;
-  margin: 15vh auto;
+  margin: 0 auto;
+  /* border: 2px solid rgb(0, 60, 255); */
   width: 85%;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+  min-height: 20vh;
+  align-items: center;
   background-color: rgba(0, 0, 0, 0.353);
   box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
     rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
@@ -21,4 +24,12 @@
   border-radius: 0 20px 20px 0;
   background-color: rgba(223, 207, 207, 0.534);
   width: 0;
+}
+
+
+@media (max-width: 400px) {
+  .users-list {
+    width: 95%;
+
+  }
 }

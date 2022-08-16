@@ -11,7 +11,6 @@ import logout_logo from "../assets/logout_logo.png";
 const NavLinks = props => {
 
   const User = useContext(AuthContext);
-  console.log("props extra: ", props.extra)
 
   return <ul className="nav-links">
 

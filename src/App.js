@@ -5,7 +5,7 @@ import {
   Redirect
 } from 'react-router-dom'
 
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { useCallback } from 'react'
 import NewPlace from './places/pages/NewPlace'
 import User from './users/pages/Users'
@@ -22,12 +22,16 @@ import ForumPage from "./forum/ForumPage";
 
 function App() {
 
+
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [userId, setUserId] = useState(null)
 
-  // console.log("islogged in? ", isLoggedIn)
-
   const login = useCallback((uid) => {
+
+    if(!uid){
+      setIsLoggedIn(false);
+      return;
+    }
     setIsLoggedIn(true)
     setUserId(uid)
   }, [])

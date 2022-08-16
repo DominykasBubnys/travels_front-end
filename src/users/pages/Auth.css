@@ -1,7 +1,8 @@
 .auth-form {
   width: 30%;
   text-align: center;
-  margin-top: 20vh;
+  margin-top: 10vh;
+  margin-bottom: 10px;
 }
 
 @media (max-width: 900px) {

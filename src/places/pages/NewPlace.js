@@ -12,6 +12,7 @@ import {
   VALIDATOR_REQUIRE,
   VALIDATOR_MINLENGTH
 } from '../../shared/utils/Validators';
+import Card from '../../shared/UIElements/Card';
 
 
 
@@ -99,7 +100,9 @@ const NewPlace = () => {
       {isLoading && <LoadingSpinner asOverlay/>}
       
       {!isLoading && 
-      <form className="place-form" onSubmit={placeSubmitHandler}>
+
+<Card>
+<form className="place-form" onSubmit={placeSubmitHandler}>
         <Input
           id="title"
           element="input"
@@ -142,7 +145,10 @@ const NewPlace = () => {
           {/* disabled={!formState.isValid}> */}
           ADD PLACE
         </Button>
-      </form>}
+      </form>
+</Card>
+
+      }
     </React.Fragment>
     
   );

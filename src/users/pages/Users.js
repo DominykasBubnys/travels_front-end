@@ -17,12 +17,15 @@ const Users = () => {
       try{
         setIsLoading(true);
 
-        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/users`);
-        const responseData = await response.json();
+        const response = await fetch(`http://localhost:8000/api/users`);
+
         if(!response.ok){
-          throw new Error(response.message);
+          throw new Error("Server side error");
         }
 
+        const responseData = await response.json();
+
+        console.log("respas in krc" , responseData.users)
         setLoadedUsers(responseData.users);
         setIsLoading(false);
 

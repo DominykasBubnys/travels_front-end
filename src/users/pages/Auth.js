@@ -134,7 +134,7 @@ const Auth = () => {
 
         if(!responseData.status)throw new Error(responseData.message)
 
-        auth.login(responseData.user._id);
+        auth.login(responseData.user.id);
         setIsLoading(false);
         history.push("/");
 

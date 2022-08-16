@@ -29,6 +29,8 @@ const UserDetails = () => {
         if (!request.ok) throw new Error('Failed to get user with provided id')
         const responseData = await request.json()
 
+        if(!responseData.status)throw new Error(`Failed to load ${responseData.user.id} details`)
+
         console.log("request of the user: ", responseData);
 
         setFetchedData(responseData.user)

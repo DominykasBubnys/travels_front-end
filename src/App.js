@@ -27,6 +27,11 @@ function App() {
   const [userId, setUserId] = useState(null)
 
   const login = useCallback((uid) => {
+
+    if(!uid){
+      setIsLoggedIn(false);
+      return;
+    }
     setIsLoggedIn(true)
     setUserId(uid)
   }, [])

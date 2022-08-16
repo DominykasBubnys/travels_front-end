@@ -2,10 +2,12 @@
   width: 90%;
   border-radius: 20px;
   color: aliceblue;
+  padding-top: 2000px;
   display: flex;
   flex-wrap: wrap;
+  height: 80vh;
   justify-content: space-around;
-  margin: 25vh auto;
+  margin: 0 auto;
   box-shadow: inset 0 2px 74px 0 rgb(71, 71, 71); 
   padding: 2rem 0;
 }
@@ -19,6 +21,11 @@
 .user-details-image {
   width: 20%;
   align-self: center;
+}
+
+.user-details-image img{
+  width: 100%;
+  border-radius: 20%;
 }
 
 .user-details-contacts {

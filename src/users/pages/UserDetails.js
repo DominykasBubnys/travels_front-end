@@ -1,10 +1,10 @@
-import { useEffect, useContext, useState } from 'react'
+import { useEffect, useContext, useState, useId } from 'react'
 import './UserDetails.css'
 import LoadingSpinner from '../../shared/UIElements/LoadingSpinner'
 import ErrorModal from '../../shared/UIElements/ErrorModal'
 import { useHistory, useParams } from 'react-router-dom'
 import Avatar from '../../shared/UIElements/Avatar'
-
+import { AuthContext } from '../../shared/context/auth-context'
 import React from 'react'
 import Button from '../../shared/FormElements/Button'
 import Modal from '../../shared/UIElements/Modal'
@@ -15,53 +15,57 @@ const UserDetails = () => {
   const [fetchedData, setFetchedData] = useState({})
   const [showMessageModal, setShowMessageModal] = useState(false)
   const history = useHistory()
-  const UserId = useParams().uid
+  const Auth = useContext(AuthContext);
+  const UserId = Auth.userId
 
-  // useEffect(() => {
-  //   const LoadUser = async () => {
-  //     setIsLoading(true)
-  //     try {
-  //       const request = await fetch(
-  //         `${process.env.REACT_APP_BACKEND_URL}/user/${UserId}`
-  //       )
-  //       if (!request.ok) throw new Error('Failed to get user with provided id')
-  //       const responseData = await request.json()
 
-  //       setFetchedData(responseData.user)
-  //       setIsLoading(false)
-  //     } catch (err) {
-  //       setIsError(err.message || ' Cannot load particular user')
-  //       console.log('error in UserDetails component: ', err)
-  //     }
-  //   }
+  useEffect(() => {
+    const LoadUser = async () => {
+      setIsLoading(true)
+      try {
+        const request = await fetch(
+          `http://localhost:8000/api/users/${UserId}`
+        )
+        if (!request.ok) throw new Error('Failed to get user with provided id')
+        const responseData = await request.json()
 
-  //   LoadUser()
-  // }, [])
+        console.log("request of the user: ", responseData);
 
-  // const clearErrorHandler = () => {
-  //   setIsError(null)
-  //   history.push('/')
-  // }
+        setFetchedData(responseData.user)
+        setIsLoading(false)
+      } catch (err) {
+        setIsError(err.message || ' Cannot load particular user')
+        console.log('error in UserDetails component: ', err)
+      }
+    }
 
-  // const backButtonHandler = () => {
-  //   history.push('/')
-  // }
+    LoadUser()
+  }, [])
 
-  // const messageButtonHandler = () => {
-  //   setShowMessageModal(true)
-  // }
+  const clearErrorHandler = () => {
+    setIsError(null)
+    history.push('/')
+  }
 
-  // const messageSubmitHandler = (event) => {
-  //   event.preventDefault()
-  // }
+  const backButtonHandler = () => {
+    history.push('/')
+  }
 
-  // const browsePlacesButtonHandler = () => {
-  //   history.push(`/${fetchedData._id}/places`)
-  // }
+  const messageButtonHandler = () => {
+    setShowMessageModal(true)
+  }
+
+  const messageSubmitHandler = (event) => {
+    event.preventDefault()
+  }
+
+  const browsePlacesButtonHandler = () => {
+    history.push(`/${fetchedData.id}/places`)
+  }
 
   return (
     <React.Fragment>
-      {/* {<ErrorModal error={isError} onClear={clearErrorHandler} />}
+      {<ErrorModal error={isError} onClear={clearErrorHandler} />}
       {isLoading && <LoadingSpinner asOverlay />}
 
       <Modal
@@ -84,7 +88,7 @@ const UserDetails = () => {
           </div>
 
           <div className="user-details-image">
-            <Avatar src="https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png" />
+            <img src={fetchedData.image} alt="user"/>
           </div>
 
           <div className="user-details-contacts">
@@ -92,12 +96,7 @@ const UserDetails = () => {
             <Button onClick={backButtonHandler}>Back</Button>
           </div>
         </div>
-      )} */}
-      <div style={{ width:600, paddingTop: 150, backgroundColor: "green", textAlign:"center" }}>
-              <h1 style={{ color:"white" }}>labas</h1>
-              <img src='like_logo.png' />
-
-      </div>
+      )}
     </React.Fragment>
   )
 }

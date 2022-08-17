@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import Button from '../../shared/FormElements/Button'
-import Avatar from '../../shared/UIElements/Avatar'
 import ErrorModal from '../../shared/UIElements/ErrorModal'
 import LoadingSpinner from '../../shared/UIElements/LoadingSpinner'
 import { useHistory } from 'react-router-dom'
 import classes from './PlaceDetails.module.css'
+import hotels_logo from "../../shared/assets/hotel_icon.png"
+import PlaceHotelsList from '../components/PlaceHotelsList'
+import PlaceCommentsList from '../components/PlaceCommentsList'
 
 // Images
 import like_logo from "../../shared/assets/like_logo.png"
@@ -17,30 +19,12 @@ const PlaceDetails = () => {
   const history = useHistory()
   const pid = useParams().placeId
   const [isError, setIsError] = useState(null)
-  const [loadedPlace, setLoadedPlace] = useState(null)
-  // const [showReactions, setShowReactions] = useState(false)
-  // const [reactedUsersList, setReactedUsersList] = useState(null)
+  const [loadedPlace, setLoadedPlace] = useState(null);
+  const [showHotelsModel, setShowHotelsModel] = useState(false);
+  const [showCommentsModel, setShowCommentsModel] = useState(false);
   const [isloading, setIsLoading] = useState(false)
 
-  // const getUsersByIds = async (ids) => {
-  //   const usersArray = []
 
-  //   try {
-  //     for (let i = 0; i < ids.length; i++) {
-  //       const reactedUserRequest = await fetch(
-  //         `${process.env.REACT_APP_BACKEND_URL}/user/${ids[i]}`
-  //       )
-  //       if (!reactedUserRequest.ok)
-  //         throw new Error('Cannot fetch users who likes this place')
-  //       const reactedUsers = await reactedUserRequest.json()
-  //       usersArray.push(reactedUsers.user)
-  //     }
-  //   } catch (err) {
-  //     setIsError(err.message || 'Cannot fetch users who likes this place')
-  //   }
-
-  //   return usersArray
-  // }
 
   useEffect(() => {
     const loadPlaces = async () => {
@@ -49,7 +33,7 @@ const PlaceDetails = () => {
         // setReactedUsersList(true)
 
         const request = await fetch(
-          `http://localhost:8000/places/${pid}`
+          `http://localhost:8000/api/places/${pid}`
         )
 
         if (!request.ok) throw new Error('Cannot get data about this place')
@@ -58,14 +42,6 @@ const PlaceDetails = () => {
 
         setLoadedPlace(responseData.place)
 
-        // const reactedIds = await responseData.place.likedBy
-
-        // if (!reactedIds)
-        //   throw new Error('Cannot fetch users ids who likes this place')
-
-        // const usersList = await getUsersByIds(reactedIds)
-
-        // setReactedUsersList(usersList)
         setIsLoading(false)
       } catch (err) {
         setIsLoading(false)
@@ -76,9 +52,6 @@ const PlaceDetails = () => {
     loadPlaces()
   }, [])
 
-  // const changeReactionsHandler = () => {
-  //   setShowReactions(!showReactions)
-  // }
 
   const onErrorClear = () => {
     setIsError(null)
@@ -86,12 +59,22 @@ const PlaceDetails = () => {
   }
 
   const linkToAuthorPage = () => {
-    history.push("/profile")//push(`/user/${loadedPlace.creator}`)
+    console.log("author place obj: ", loadedPlace)
   }
 
-  // const linkToReactedUserProfile = (uid) => {
-  //   history.push(`/user/${uid}`)
-  // }
+
+
+  const viewHotelsHandler = async() => {
+    setShowHotelsModel(!showHotelsModel)
+    setShowCommentsModel(false);
+  }
+
+  const viewCommentsHandler = async() => {
+    setShowCommentsModel(!showCommentsModel)
+    setShowHotelsModel(false);
+  }
+
+  
   return (
     <React.Fragment>
 
@@ -101,7 +84,9 @@ const PlaceDetails = () => {
       {!isloading && loadedPlace && (
         <div className={classes.container}>
           <h1 className={classes.detailsTitle}>{loadedPlace.title}</h1>
-
+          <div className={classes.address}>
+            <p>{loadedPlace.address}</p>
+          </div>
           <div className={classes.main_content}>
             <div className={classes.image}>
               <img src={loadedPlace.image} alt={loadedPlace.title}/>
@@ -113,39 +98,39 @@ const PlaceDetails = () => {
             </div>
           </div>
           
-          <div className={classes.reaction_container}>
-            <div className={classes.reaction_logo}>
-              <img src={like_logo} alt="like" />
-              <p>5</p>
+          <div className={classes.options_container}>
+            
+            <div className={classes.options_item}>
+              <div className={classes.options_logo}>
+                <img src={like_logo} alt="like" />
+              </div>
+
+              <div className={classes.options_logo}>
+                <img src={comment_logo} onClick={viewCommentsHandler} alt="comment" />
+              </div>
+
+              <div className={classes.options_logo}>
+                <img src={hotels_logo} style={{ borderRadius: 50 }} onClick={viewHotelsHandler} alt="hotels" />
+              </div>
             </div>
 
-            <div className={classes.reaction_logo}>
-              <img src={comment_logo} alt="comment" />
-              <p>5</p>
+            {showHotelsModel && <PlaceHotelsList />}
+            {showCommentsModel && <PlaceCommentsList pid={loadedPlace.id}/>}
+
+            <div className={classes.properties}>
+              <div>
+                <Button onClick={() => history.push('/')}>Back</Button>
+              </div>
+
+              <div>
+                <Button onClick={linkToAuthorPage}>Auth page</Button>
+              </div>
+
             </div>
+            
           </div>
 
-          {/* 
 
-          <div className={classes.address}>
-            <h1>Address</h1>
-            <p>{loadedPlace.address}</p>
-          </div>
-
-          <div className={classes.scraped}>
-
-          </div>
-
-          <div className={classes.properties}>
-            <div>
-              <Button onClick={() => history.push('/')}>Back</Button>
-            </div>
-
-            <div>
-              <Button onClick={linkToAuthorPage}>Auth page</Button>
-            </div>
-
-          </div> */}
         </div>
       )}
     </React.Fragment>

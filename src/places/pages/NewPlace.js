@@ -80,9 +80,6 @@ const NewPlace = () => {
 
       if(!reqBody.status) throw new Error(reqBody.message[0])
 
-      console.log("added place => result: ", reqBody);
-
-
       setIsLoading(false);
 
       history.push("/");

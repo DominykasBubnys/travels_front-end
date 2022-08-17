@@ -14,7 +14,6 @@ const UsersList = ({items}) => {
     }
   })
 
-  console.log('props: ',items);
   const Users = items;
   if (Users.length === 0) {
     return (

@@ -25,7 +25,6 @@ const Users = () => {
 
         const responseData = await response.json();
 
-        console.log("respas in krc" , responseData.users)
         setLoadedUsers(responseData.users);
         setIsLoading(false);
 

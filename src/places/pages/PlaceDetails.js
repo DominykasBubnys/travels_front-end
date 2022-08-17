@@ -103,12 +103,10 @@ const PlaceDetails = () => {
             <div className={classes.options_item}>
               <div className={classes.options_logo}>
                 <img src={like_logo} alt="like" />
-                <p>5</p>
               </div>
 
               <div className={classes.options_logo}>
                 <img src={comment_logo} onClick={viewCommentsHandler} alt="comment" />
-                <p>5</p>
               </div>
 
               <div className={classes.options_logo}>
@@ -117,7 +115,7 @@ const PlaceDetails = () => {
             </div>
 
             {showHotelsModel && <PlaceHotelsList />}
-            {showCommentsModel && <PlaceCommentsList />}
+            {showCommentsModel && <PlaceCommentsList pid={loadedPlace.id}/>}
 
             <div className={classes.properties}>
               <div>

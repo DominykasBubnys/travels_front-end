@@ -127,7 +127,7 @@ const Auth = () => {
         })
 
         
-        if(!response.ok) throw new Error("responseData.message");
+        if(!response.ok) throw new Error("Server side error! Server is not responsing");
 
 
         const responseData = await response.json();
@@ -157,8 +157,6 @@ const Auth = () => {
       <Card className="authentication">
         {loading && <LoadingSpinner asOverlay/>}
         <form className="auth-form place-form" onSubmit={authSubmitHandler}>
-
-        {/* {!isLoginMode && (<ImageUpload center id="image" onInput={inputHandler} />)} */}
 
           {!isLoginMode && (
             <>

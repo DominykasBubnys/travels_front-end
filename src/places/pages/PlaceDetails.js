@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import Button from '../../shared/FormElements/Button'
-import Avatar from '../../shared/UIElements/Avatar'
 import ErrorModal from '../../shared/UIElements/ErrorModal'
 import LoadingSpinner from '../../shared/UIElements/LoadingSpinner'
 import { useHistory } from 'react-router-dom'
 import classes from './PlaceDetails.module.css'
 import hotels_logo from "../../shared/assets/hotel_icon.png"
 import PlaceHotelsList from '../components/PlaceHotelsList'
+import PlaceCommentsList from '../components/PlaceCommentsList'
+
 // Images
 import like_logo from "../../shared/assets/like_logo.png"
 import comment_logo from "../../shared/assets/comment_logo.png"
@@ -20,6 +21,7 @@ const PlaceDetails = () => {
   const [isError, setIsError] = useState(null)
   const [loadedPlace, setLoadedPlace] = useState(null);
   const [showHotelsModel, setShowHotelsModel] = useState(false);
+  const [showCommentsModel, setShowCommentsModel] = useState(false);
   const [isloading, setIsLoading] = useState(false)
 
 
@@ -62,8 +64,14 @@ const PlaceDetails = () => {
 
 
 
-  const checkHotelsHandler = async() => {
+  const viewHotelsHandler = async() => {
     setShowHotelsModel(!showHotelsModel)
+    setShowCommentsModel(false);
+  }
+
+  const viewCommentsHandler = async() => {
+    setShowCommentsModel(!showCommentsModel)
+    setShowHotelsModel(false);
   }
 
   
@@ -77,7 +85,6 @@ const PlaceDetails = () => {
         <div className={classes.container}>
           <h1 className={classes.detailsTitle}>{loadedPlace.title}</h1>
           <div className={classes.address}>
-            {/* <h1>Address</h1> */}
             <p>{loadedPlace.address}</p>
           </div>
           <div className={classes.main_content}>
@@ -100,16 +107,17 @@ const PlaceDetails = () => {
               </div>
 
               <div className={classes.options_logo}>
-                <img src={comment_logo} alt="comment" />
+                <img src={comment_logo} onClick={viewCommentsHandler} alt="comment" />
                 <p>5</p>
               </div>
 
               <div className={classes.options_logo}>
-                <img src={hotels_logo} style={{ borderRadius: 50 }} onClick={checkHotelsHandler} alt="hotels" />
+                <img src={hotels_logo} style={{ borderRadius: 50 }} onClick={viewHotelsHandler} alt="hotels" />
               </div>
             </div>
 
             {showHotelsModel && <PlaceHotelsList />}
+            {showCommentsModel && <PlaceCommentsList />}
 
             <div className={classes.properties}>
               <div>

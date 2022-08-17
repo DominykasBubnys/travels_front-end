@@ -50,7 +50,7 @@ const UpdatePlace = () => {
       setIsLoading(true);
 
       try { 
-        const response = await fetch(`http://localhost:8000/places/${placeId}`)
+        const response = await fetch(`http://localhost:8000/api/places/${placeId}`)
 
         if(!response.ok) throw new Error(`Unexpected error in server while fetching place (id: ${placeId})`);
 

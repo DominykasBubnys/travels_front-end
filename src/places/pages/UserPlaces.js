@@ -23,11 +23,11 @@ const UserPlaces = () => {
         let request
         if (userId){
           request = await fetch(
-            `http://localhost:8000/places/user/${userId}`
+            `http://localhost:8000/api/places/user/${userId}`
           )
         }
           
-        else request = await fetch('http://localhost:8000/places');
+        else request = await fetch('http://localhost:8000/api/places');
 
         if (!request.ok){
 

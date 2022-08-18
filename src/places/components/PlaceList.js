@@ -44,7 +44,6 @@ const PlaceList = (props) => {
         description={place.description}
         address={place.address}
         likes={place.likes}
-        // isLikedByYou={place.likedBy.includes(User.userId)}
         showControllers={placesAuthId === parseInt(User.userId)}
         onDelete={props.onDeletePlace}
         onReload={reloadHandler}

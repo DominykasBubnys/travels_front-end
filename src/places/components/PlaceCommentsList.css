@@ -10,6 +10,7 @@
     outline: none;
     background-color: transparent;
     transition-duration: 0.3s;
+    cursor: pointer;
 }
 
 .new-comment-btn:hover{

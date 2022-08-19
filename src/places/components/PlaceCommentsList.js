@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import LoadingSpinner from '../../shared/UIElements/LoadingSpinner'
-import { AddNewComment } from '../../shared/utils/AddNewComment'
+// import { AddNewComment } from '../../shared/utils/AddNewComment'
 import { AuthContext } from '../../shared/context/auth-context'
 import Button from '../../shared/FormElements/Button'
 import { useHistory } from 'react-router-dom'

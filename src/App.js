@@ -5,7 +5,7 @@ import {
   Redirect
 } from 'react-router-dom'
 
-import { useContext, useState } from 'react'
+import { useState } from 'react'
 import { useCallback } from 'react'
 import NewPlace from './places/pages/NewPlace'
 import User from './users/pages/Users'

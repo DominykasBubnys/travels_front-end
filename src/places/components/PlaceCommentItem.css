@@ -1,5 +1,21 @@
 .comment-item{
-    border: 2px solid red;
+    border: 2px solid rgb(116, 110, 110);
     list-style: none;
-    margin: 1px;
+    display: flex;
+    margin: 1rem;
+    border-radius: 20px;
+
+    justify-content: space-between;
+}
+
+.comment-item img{
+    align-self: center;
+    width: 5rem;
+    border-radius: 50%;
+}
+
+.comment-item p{
+    width: 80%;
+    padding: 0;
+    margin: 0;
 }

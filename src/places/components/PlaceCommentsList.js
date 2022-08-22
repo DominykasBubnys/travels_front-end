@@ -4,7 +4,7 @@ import { AuthContext } from '../../shared/context/auth-context'
 import Button from '../../shared/FormElements/Button'
 import { useHistory } from 'react-router-dom'
 import PlaceComentItem from './PlaceComentItem'
-import { AddNewComment } from '../../shared/utils/AddNewComment'
+import { AddNewComment } from '../utils/AddNewComment'
 import './PlaceCommentsList.css'
 
 

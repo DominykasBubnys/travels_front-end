@@ -4,18 +4,18 @@
     display: flex;
     margin: 1rem;
     border-radius: 20px;
-
     justify-content: space-between;
 }
 
 .comment-item img{
     align-self: center;
-    width: 5rem;
+    width: 3rem;
     border-radius: 50%;
 }
 
-.comment-item p{
+.comment-item h6{
     width: 80%;
     padding: 0;
     margin: 0;
+    align-self: center;
 }

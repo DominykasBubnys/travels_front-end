@@ -48,9 +48,9 @@ const PlaceComentItem = (props) => {
 
         <>
             {commentedUser && <img alt='' src={commentedUser.image}/>}
-            <p>
+            <h6>
                 {comment.body}
-            </p>
+            </h6>
         </>
 
         }

@@ -5,14 +5,15 @@ import ErrorModal from '../../shared/UIElements/ErrorModal'
 import LoadingSpinner from '../../shared/UIElements/LoadingSpinner'
 import { useHistory } from 'react-router-dom'
 import classes from './PlaceDetails.module.css'
-import hotels_logo from "../../shared/assets/hotel_icon.png"
 import PlaceHotelsList from '../components/PlaceHotelsList'
 import PlaceCommentsList from '../components/PlaceCommentsList'
 
 // Images
 import like_logo from "../../shared/assets/like_logo.png"
 import comment_logo from "../../shared/assets/comment_logo.png"
-
+import hotels_logo from "../../shared/assets/hotel_icon.png"
+import go_there_logo from "../../shared/assets/go_there_logo.png"
+import back_arrow_logo from "../../shared/assets/back_arrow_logo.png"
 
 
 const PlaceDetails = () => {
@@ -101,6 +102,11 @@ const PlaceDetails = () => {
           <div className={classes.options_container}>
             
             <div className={classes.options_item}>
+
+              <div className={classes.options_logo}>
+                <img src={back_arrow_logo} style={{ borderRadius: 10 }} alt="back" onClick={() => history.push('/')}/>
+              </div>
+
               <div className={classes.options_logo}>
                 <img src={like_logo} alt="like" />
               </div>
@@ -110,7 +116,11 @@ const PlaceDetails = () => {
               </div>
 
               <div className={classes.options_logo}>
-                <img src={hotels_logo} style={{ borderRadius: 50 }} onClick={viewHotelsHandler} alt="hotels" />
+                <img src={go_there_logo} onClick={viewCommentsHandler} alt="go_there" />
+              </div>
+
+              <div className={classes.options_logo}>
+                <img src={hotels_logo} onClick={viewHotelsHandler} alt="hotels" />
               </div>
             </div>
 
@@ -118,9 +128,6 @@ const PlaceDetails = () => {
             {showCommentsModel && <PlaceCommentsList pid={loadedPlace.id}/>}
 
             <div className={classes.properties}>
-              <div>
-                <Button onClick={() => history.push('/')}>Back</Button>
-              </div>
 
               <div>
                 <Button onClick={linkToAuthorPage}>Auth page</Button>

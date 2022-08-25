@@ -11,6 +11,7 @@ import logout_logo from "../assets/logout_logo.png";
 const NavLinks = props => {
 
   const User = useContext(AuthContext);
+  console.log("User in nav links: ", User)
 
   return <ul className="nav-links">
 
@@ -24,10 +25,10 @@ const NavLinks = props => {
     </li>
     
     {
-      User.isLoggedIn && 
+      User.isLoggedIn && User.authenticatedUser &&
         <React.Fragment>
         <li className='hover_change-color'>
-          <NavLink to={`/${User.userId}/places`}>MY PLACES</NavLink>
+          <NavLink to={`/${User.authenticatedUser.id}/places`}>MY PLACES</NavLink>
         </li>
         <li className='hover_change-color'>
           <NavLink to="/places/new">ADD PLACE</NavLink>

@@ -6,8 +6,6 @@ import LoadingSpinner from "../../shared/UIElements/LoadingSpinner";
 import ErrorModal from "../../shared/UIElements/ErrorModal";
 import {getAuthenticated} from "../utils/Authenticate"
 import { useHistory } from "react-router-dom";
-
-
 import {
   VALIDATOR_EMAIL,
   VALIDATOR_MINLENGTH,
@@ -16,6 +14,7 @@ import {
 import { useForm } from '../../shared/hooks/form-hook';
 import { AuthContext } from '../../shared/context/auth-context';
 import './Auth.css';
+
 
 const Auth = () => {
   const Auth = useContext(AuthContext);
@@ -46,7 +45,6 @@ const Auth = () => {
         {
           ...formState.inputs,
           name: undefined,
-          // image: undefined
         },
         formState.inputs.email.isValid && formState.inputs.password.isValid
       );
@@ -82,17 +80,14 @@ const Auth = () => {
       if(!authRequset.status)throw new Error(authRequset.message);
 
 
-      setIsLoading(false);
+      setIsLoading(false);      
+      Auth.login(authRequset.user)
       history.push("/");
 
 
     } catch(err){
-
-      console.log("something goes wrong!: ", err);
-
       setError(err.message || "Something went wrong, please try again..");
       setIsLoading(false)
-
     }
 
   };

@@ -22,37 +22,24 @@ import ForumPage from "./forum/ForumPage";
 
 function App() {
 
-
   const [isLoggedIn, setIsLoggedIn] = useState(false)
-  const [userId, setUserId] = useState(null)
-  const [loggedInUser, setLoggedInUser] = useState(null);
+  const [authenticatedUser, setAuthenticatedUser] = useState(null);
 
-  
-  // const login = useCallback((uid) => {
 
-  //   if(!uid){
-  //     setIsLoggedIn(false);
-  //     return;
-  //   }
-  //   setIsLoggedIn(true)
-  //   setUserId(uid)
-  // }, [])
+  const login = useCallback((user) => {
 
-  const login = useCallback((uid, user) => {
-    console.log("login method is called, user: ", user)
-
-    if(!uid){
+    if(!user.id){
       setIsLoggedIn(false);
       return;
     }
+
     setIsLoggedIn(true)
-    setUserId(uid)
+    setAuthenticatedUser(user)
   }, [])
 
   const logout = useCallback(() => {
-    setLoggedInUser(null);
+    setAuthenticatedUser(null);
     setIsLoggedIn(false)
-    setUserId(null)
   }, [])
 
   let routes
@@ -128,7 +115,7 @@ function App() {
   }
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn, login, logout, userId }}>
+    <AuthContext.Provider value={{ isLoggedIn, login, logout, authenticatedUser }}>
       <Router>
         <MainNavigation />
         <main>{routes}</main>

@@ -75,8 +75,6 @@ const Auth = () => {
     try {
       const authRequset = await getAuthenticated(isLoginMode, formState.inputs);
 
-      console.log("auth request: ", authRequset)
-
       if(!authRequset.status)throw new Error(authRequset.message);
 
 

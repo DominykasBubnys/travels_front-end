@@ -20,8 +20,6 @@ const PlaceItem = (props) => {
   const [likesAmount, setLikesAmount] = useState(props.likes)
 
 
-  console.log("active user: ", Auth);
-
   const openMapHandler = () => setShowMap(true)
 
   const closeMapHandler = () => setShowMap(false)

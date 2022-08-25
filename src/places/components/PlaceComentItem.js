@@ -9,6 +9,8 @@ const PlaceComentItem = (props) => {
     const [commentedUser, setCommentedUser] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 
+    console.log("comment component");
+
     useEffect(() => {
         const loadActiveUser = async() => {
             try {

@@ -60,7 +60,7 @@ const PlaceDetails = () => {
   }
 
   const linkToAuthorPage = () => {
-    console.log("author place obj: ", loadedPlace)
+    history.push(`/users/${0}`)
   }
 
 

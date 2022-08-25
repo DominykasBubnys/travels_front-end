@@ -4,9 +4,8 @@ import Input from '../../shared/FormElements/Input';
 import Button from '../../shared/FormElements/Button';
 import LoadingSpinner from "../../shared/UIElements/LoadingSpinner";
 import ErrorModal from "../../shared/UIElements/ErrorModal";
+import {getAuthenticated} from "../utils/Authenticate"
 import { useHistory } from "react-router-dom";
-
-
 import {
   VALIDATOR_EMAIL,
   VALIDATOR_MINLENGTH,
@@ -16,8 +15,9 @@ import { useForm } from '../../shared/hooks/form-hook';
 import { AuthContext } from '../../shared/context/auth-context';
 import './Auth.css';
 
+
 const Auth = () => {
-  const auth = useContext(AuthContext);
+  const Auth = useContext(AuthContext);
   const [isLoginMode, setIsLoginMode] = useState(true);
   const [loading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -45,7 +45,6 @@ const Auth = () => {
         {
           ...formState.inputs,
           name: undefined,
-          // image: undefined
         },
         formState.inputs.email.isValid && formState.inputs.password.isValid
       );
@@ -71,84 +70,31 @@ const Auth = () => {
 
   const authSubmitHandler = async event => {
     event.preventDefault();
+    setIsLoading(true);
 
-    if(isLoginMode){ // for loging in
+    try {
+      const authRequset = await getAuthenticated(isLoginMode, formState.inputs);
 
-      try{
-        setIsLoading(true);
-        const response = await fetch(`http://localhost:8000/api/login`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            email: formState.inputs.email.value,
-            password: formState.inputs.password.value,
-          })
-        })
+      console.log("auth request: ", authRequset)
 
-        if(!response.ok) throw new Error('unexpected error. Please try again');
-
-        const responseData = await response.json();
-
-        if(!responseData.status)throw new Error(responseData.message);
-
-        auth.login(responseData.user.id);
-
-        setIsLoading(false);
-        history.push("/");
+      if(!authRequset.status)throw new Error(authRequset.message);
 
 
-      }catch(err){
-        setError(err.message || "Something went wrong, please try again..");
-        setIsLoading(false)
-      }
+      setIsLoading(false);      
+      Auth.login(authRequset.user)
+      history.push("/");
 
+
+    } catch(err){
+      setError(err.message || "Something went wrong, please try again..");
+      setIsLoading(false)
     }
-    else{ // if it's sign-up mode...
-      try{
 
-        console.log("forma: ", formState)
-
-        setIsLoading(true);
-        const response = await fetch(`http://localhost:8000/api/register`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            name: formState.inputs.name.value,
-            email: formState.inputs.email.value,
-            password: formState.inputs.password.value,
-            country: formState.inputs.country.value,
-            image: formState.inputs.photo.value,
-
-          })
-        })
-
-        
-        if(!response.ok) throw new Error("Server side error! Server is not responsing");
-
-
-        const responseData = await response.json();
-
-        if(!responseData.status)throw new Error(responseData.message)
-
-        auth.login(responseData.user.id);
-        setIsLoading(false);
-        history.push("/");
-
-
-      }catch(err){
-        setError(err.message || "Something went wrong, please try again..");
-        setIsLoading(false)
-      }
-    }
   };
 
   const errorHandler = () => {
     setError(null);
-
+    setIsLoading(false);
   }
 
   return (

@@ -1,35 +1,47 @@
 
-export const getAuthenticated = async(doesUserExists, inputs) => {
-
-    const AuthenticateRequest = doesUserExists ? await login(inputs.email, inputs.password) : await register();
-
-    console.log("AuthenticateRequest :", AuthenticateRequest);
-
-    return AuthenticateRequest;
-
-}
-
-const login = async(input_email, input_password) => {
+export const getAuthenticated = async(doesUserExists, form_inputs) => {
 
     const response = {
         status: false,
-        message: "failed to logged you in!",
+        message: "Authentication fails!",
         user: null
     }
 
+    const fetchBody = (
+        doesUserExists ? 
+        {
+            email: form_inputs.email.value,
+            password: form_inputs.password.value,
+        }
+        :
+        {
+            name: form_inputs.name.value,
+            email: form_inputs.email.value,
+            password: form_inputs.password.value,
+            country: form_inputs.country.value,
+            image: form_inputs.photo.value,
+        }
+    )
+
+    const fetch_url = (
+        doesUserExists ? 
+        `http://localhost:8000/api/login`
+        :
+        `http://localhost:8000/api/register`
+    )
+
+
+
     try{
-        const request = await fetch(`http://localhost:8000/api/login`, {
+        const request = await fetch(fetch_url, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({
-                email: input_email.value,
-                password: input_password.value,
-            })
+            body: JSON.stringify(fetchBody)
         })
 
-        if(!request.ok) throw new Error('unexpected error. Please try again');
+        if(!request.ok) throw new Error("Server side error! Server is not responding");
 
         const RequestData = await request.json();
 
@@ -46,14 +58,5 @@ const login = async(input_email, input_password) => {
         response.user=null;
     }
 
-
     return response;
-}
-
-const register = async() => {
-    const response = {
-        status: false,
-        message: "Registration fails",
-        user: null
-    }
 }

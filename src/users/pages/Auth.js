@@ -18,7 +18,7 @@ import { AuthContext } from '../../shared/context/auth-context';
 import './Auth.css';
 
 const Auth = () => {
-  const auth = useContext(AuthContext);
+  const Auth = useContext(AuthContext);
   const [isLoginMode, setIsLoginMode] = useState(true);
   const [loading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -83,92 +83,23 @@ const Auth = () => {
 
 
       setIsLoading(false);
+      history.push("/");
+
 
     } catch(err){
-      
+
+      console.log("something goes wrong!: ", err);
+
       setError(err.message || "Something went wrong, please try again..");
       setIsLoading(false)
 
     }
 
-
-    // if(isLoginMode){ // for loging in
-
-    //   try{
-    //     setIsLoading(true);
-    //     const response = await fetch(`http://localhost:8000/api/login`, {
-    //       method: "POST",
-    //       headers: {
-    //         "Content-Type": "application/json"
-    //       },
-    //       body: JSON.stringify({
-    //         email: formState.inputs.email.value,
-    //         password: formState.inputs.password.value,
-    //       })
-    //     })
-
-    //     if(!response.ok) throw new Error('unexpected error. Please try again');
-
-    //     const responseData = await response.json();
-
-    //     if(!responseData.status)throw new Error(responseData.message);
-
-    //     auth.login(responseData.user.id);
-
-    //     setIsLoading(false);
-    //     history.push("/");
-
-
-    //   }catch(err){
-    //     setError(err.message || "Something went wrong, please try again..");
-    //     setIsLoading(false)
-    //   }
-
-    // }
-    // else{ // if it's sign-up mode...
-    //   try{
-
-    //     console.log("forma: ", formState)
-
-    //     setIsLoading(true);
-    //     const response = await fetch(`http://localhost:8000/api/register`, {
-    //       method: "POST",
-    //       headers: {
-    //         "Content-Type": "application/json"
-    //       },
-    //       body: JSON.stringify({
-    //         name: formState.inputs.name.value,
-    //         email: formState.inputs.email.value,
-    //         password: formState.inputs.password.value,
-    //         country: formState.inputs.country.value,
-    //         image: formState.inputs.photo.value,
-
-    //       })
-    //     })
-
-        
-    //     if(!response.ok) throw new Error("Server side error! Server is not responsing");
-
-
-    //     const responseData = await response.json();
-
-    //     if(!responseData.status)throw new Error(responseData.message)
-
-    //     auth.login(responseData.user.id);
-    //     setIsLoading(false);
-    //     history.push("/");
-
-
-    //   }catch(err){
-    //     setError(err.message || "Something went wrong, please try again..");
-    //     setIsLoading(false)
-    //   }
-    // }
   };
 
   const errorHandler = () => {
     setError(null);
-
+    setIsLoading(false);
   }
 
   return (

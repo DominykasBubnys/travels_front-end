@@ -25,8 +25,21 @@ function App() {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [userId, setUserId] = useState(null)
+  const [loggedInUser, setLoggedInUser] = useState(null);
 
-  const login = useCallback((uid) => {
+  
+  // const login = useCallback((uid) => {
+
+  //   if(!uid){
+  //     setIsLoggedIn(false);
+  //     return;
+  //   }
+  //   setIsLoggedIn(true)
+  //   setUserId(uid)
+  // }, [])
+
+  const login = useCallback((uid, user) => {
+    console.log("login method is called, user: ", user)
 
     if(!uid){
       setIsLoggedIn(false);
@@ -37,6 +50,7 @@ function App() {
   }, [])
 
   const logout = useCallback(() => {
+    setLoggedInUser(null);
     setIsLoggedIn(false)
     setUserId(null)
   }, [])

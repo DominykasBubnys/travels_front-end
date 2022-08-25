@@ -4,6 +4,7 @@ import Input from '../../shared/FormElements/Input';
 import Button from '../../shared/FormElements/Button';
 import LoadingSpinner from "../../shared/UIElements/LoadingSpinner";
 import ErrorModal from "../../shared/UIElements/ErrorModal";
+import {getAuthenticated} from "../utils/Authenticate"
 import { useHistory } from "react-router-dom";
 
 
@@ -71,79 +72,98 @@ const Auth = () => {
 
   const authSubmitHandler = async event => {
     event.preventDefault();
+    setIsLoading(true);
 
-    if(isLoginMode){ // for loging in
+    try {
+      const authRequset = await getAuthenticated(isLoginMode, formState.inputs);
 
-      try{
-        setIsLoading(true);
-        const response = await fetch(`http://localhost:8000/api/login`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            email: formState.inputs.email.value,
-            password: formState.inputs.password.value,
-          })
-        })
+      console.log("auth request: ", authRequset)
 
-        if(!response.ok) throw new Error('unexpected error. Please try again');
-
-        const responseData = await response.json();
-
-        if(!responseData.status)throw new Error(responseData.message);
-
-        auth.login(responseData.user.id);
-
-        setIsLoading(false);
-        history.push("/");
+      if(!authRequset.status)throw new Error(authRequset.message);
 
 
-      }catch(err){
-        setError(err.message || "Something went wrong, please try again..");
-        setIsLoading(false)
-      }
+      setIsLoading(false);
+
+    } catch(err){
+      
+      setError(err.message || "Something went wrong, please try again..");
+      setIsLoading(false)
 
     }
-    else{ // if it's sign-up mode...
-      try{
 
-        console.log("forma: ", formState)
 
-        setIsLoading(true);
-        const response = await fetch(`http://localhost:8000/api/register`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            name: formState.inputs.name.value,
-            email: formState.inputs.email.value,
-            password: formState.inputs.password.value,
-            country: formState.inputs.country.value,
-            image: formState.inputs.photo.value,
+    // if(isLoginMode){ // for loging in
 
-          })
-        })
+    //   try{
+    //     setIsLoading(true);
+    //     const response = await fetch(`http://localhost:8000/api/login`, {
+    //       method: "POST",
+    //       headers: {
+    //         "Content-Type": "application/json"
+    //       },
+    //       body: JSON.stringify({
+    //         email: formState.inputs.email.value,
+    //         password: formState.inputs.password.value,
+    //       })
+    //     })
+
+    //     if(!response.ok) throw new Error('unexpected error. Please try again');
+
+    //     const responseData = await response.json();
+
+    //     if(!responseData.status)throw new Error(responseData.message);
+
+    //     auth.login(responseData.user.id);
+
+    //     setIsLoading(false);
+    //     history.push("/");
+
+
+    //   }catch(err){
+    //     setError(err.message || "Something went wrong, please try again..");
+    //     setIsLoading(false)
+    //   }
+
+    // }
+    // else{ // if it's sign-up mode...
+    //   try{
+
+    //     console.log("forma: ", formState)
+
+    //     setIsLoading(true);
+    //     const response = await fetch(`http://localhost:8000/api/register`, {
+    //       method: "POST",
+    //       headers: {
+    //         "Content-Type": "application/json"
+    //       },
+    //       body: JSON.stringify({
+    //         name: formState.inputs.name.value,
+    //         email: formState.inputs.email.value,
+    //         password: formState.inputs.password.value,
+    //         country: formState.inputs.country.value,
+    //         image: formState.inputs.photo.value,
+
+    //       })
+    //     })
 
         
-        if(!response.ok) throw new Error("Server side error! Server is not responsing");
+    //     if(!response.ok) throw new Error("Server side error! Server is not responsing");
 
 
-        const responseData = await response.json();
+    //     const responseData = await response.json();
 
-        if(!responseData.status)throw new Error(responseData.message)
+    //     if(!responseData.status)throw new Error(responseData.message)
 
-        auth.login(responseData.user.id);
-        setIsLoading(false);
-        history.push("/");
+    //     auth.login(responseData.user.id);
+    //     setIsLoading(false);
+    //     history.push("/");
 
 
-      }catch(err){
-        setError(err.message || "Something went wrong, please try again..");
-        setIsLoading(false)
-      }
-    }
+    //   }catch(err){
+    //     setError(err.message || "Something went wrong, please try again..");
+    //     setIsLoading(false)
+    //   }
+    // }
   };
 
   const errorHandler = () => {

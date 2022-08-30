@@ -23,6 +23,7 @@ const NewPlace = () => {
 
   const Auth = useContext(AuthContext);
 
+
   const [formState, inputHandler] = useForm(
     {
       title: {
@@ -68,7 +69,7 @@ const NewPlace = () => {
           image: formState.inputs.image.value,
           address: formState.inputs.address.value,
           likes: 0,
-          author_id: Auth.userId,
+          author_id: Auth.authenticatedUser.id,
         })
       })
 
@@ -78,7 +79,7 @@ const NewPlace = () => {
 
       const reqBody = await Req.json();
 
-      if(!reqBody.status) throw new Error(reqBody.message[0])
+      if(!reqBody.status) throw new Error(reqBody.message)
 
       setIsLoading(false);
 

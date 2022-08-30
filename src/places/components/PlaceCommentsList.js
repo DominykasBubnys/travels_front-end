@@ -16,15 +16,16 @@ const CommentsList = (props) => {
   const [newCommentInput, setNewCommentInput] = useState("");
   const [isButtonDisable, setIsButtonDisable] = useState(true);
   const [refreshCommentsData, setRefreshCommentsData] = useState(false);
-  const Auth = useContext(AuthContext);
+  const Auth = useContext(AuthContext).authenticatedUser;
   const history = useHistory()
+  console.log("commemnts list props: ", props)
 
   const addNewCommentHandler = async() => {
     setRefreshCommentsData(true)
 
 
     try {
-      const request = await AddNewComment(props.pid, Auth.userId, newCommentInput)
+      const request = await AddNewComment(props.pid, Auth, newCommentInput)
 
       if(!request.status)throw new Error("Cannot send a comment");
     } catch (error) {
@@ -41,7 +42,6 @@ const CommentsList = (props) => {
   }
 
   useEffect(()=>{
-    console.log("useefect");
     
     const loadPlaceComments = async() => {
       try {
@@ -76,13 +76,14 @@ const CommentsList = (props) => {
 
   return (
     
-    <>
+    <div className='comments-container'>
+
       {isloading && <LoadingSpinner />}
-      {!isloading && commentsData && <div className='comments-container'>
-        
-        
+      {!isloading && commentsData && 
+          
+          
         <div>
-          {  Auth.isLoggedIn ? 
+          {  Auth ? 
             <div className='add-new-comment'>
               <input placeholder='Add new comment' autoFocus onChange={newCommentInputHandler} />
               {!isButtonDisable && <button onClick={addNewCommentHandler}>+</button>}
@@ -96,15 +97,24 @@ const CommentsList = (props) => {
             commentsCount === 0 ?
             <h6 className='no-comments-header'>No comments now</h6>
             :
-            <ul>
-              {commentsData.map(comment=><PlaceComentItem key={comment.id} comment={comment}/>)}
+            <ul className='comments-content'>
+              {commentsData.slice().reverse().map((comment,i)=>{
+
+                if(props.version){
+                  if(i===4)return <p>...</p>
+                  if(i > 4)return null; 
+                }
+                
+                return <PlaceComentItem key={comment.id} comment={comment}/>
+              })}
             </ul>
             
           }
         </div>
 
-      </div>}
-    </>
+      }
+    </div>
+
   )
 }
 

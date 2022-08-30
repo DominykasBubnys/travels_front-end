@@ -1,21 +1,29 @@
 .comment-item{
-    border: 2px solid rgb(116, 110, 110);
+    border-bottom: 2px solid rgb(116, 110, 110);
     list-style: none;
     display: flex;
-    margin: 1rem;
-    border-radius: 20px;
+    border-radius: 2px;
     justify-content: space-between;
+    /* border: 2px solid red; */
+    text-align: left;
+    margin: 1rem 0;
 }
 
 .comment-item img{
     align-self: center;
     width: 3rem;
-    border-radius: 50%;
+    border-radius: 50% 0;
 }
 
-.comment-item h6{
+.comment-text{
     width: 80%;
     padding: 0;
     margin: 0;
     align-self: center;
+}
+
+@media (max-width: 568px) {
+    .comment-item{
+        width: 99%;
+    }
 }

@@ -8,21 +8,34 @@ import Map from '../../shared/UIElements/Map'
 import LoadingSpinner from '../../shared/UIElements/LoadingSpinner'
 import ErrorModal from '../../shared/UIElements/ErrorModal'
 import { AuthContext } from '../../shared/context/auth-context'
+import PlaceCommentList from "./PlaceCommentsList"
+
+import like_logo from "../../shared/assets/like_logo.png"
+import liked_logo from "../../shared/assets/liked_logo.png"
+import comment_logo from "../../shared/assets/comment_logo.png";
+import location_logo from "../../shared/assets/location_logo.png";
+
 
 const PlaceItem = (props) => {
   const Auth = useContext(AuthContext)
   const history = useHistory()
   const [showMap, setShowMap] = useState(false)
   const [showConfirmModal, setConfirmModal] = useState(false)
+  const [showCommentsModal, setCommentsModal] = useState(false)
   const [isloading, setIsLoading] = useState(false)
   const [isError, setIsError] = useState(null)
   const [reaction, setReaction] = useState(props.isLikedByYou)
   const [likesAmount, setLikesAmount] = useState(props.likes)
 
-
   const openMapHandler = () => setShowMap(true)
 
+  const openCommentsHandler = () => setCommentsModal(true)
+
+
   const closeMapHandler = () => setShowMap(false)
+
+  const closeCommentsHandler = () => setCommentsModal(false)
+
 
   const showDeleteWarningHandler = () => {
     setConfirmModal(true)
@@ -59,6 +72,7 @@ const PlaceItem = (props) => {
   const closeErrorModal = () => {
     setIsError(null)
   }
+
 
   const reactionHandler = async () => {
     
@@ -99,6 +113,18 @@ const PlaceItem = (props) => {
             <Button danger onClick={confirmDeleteHandler}>
               DELETE
             </Button>
+          </React.Fragment>
+        }
+      />
+
+      <Modal
+        show={showCommentsModal}
+        onCancel={closeCommentsHandler}
+        header="Comments"
+        footerClass="place-item__modal-actions"
+        footer={
+          <React.Fragment>
+            <PlaceCommentList pid={props.id} version={'small'}/>
           </React.Fragment>
         }
       />
@@ -146,10 +172,10 @@ const PlaceItem = (props) => {
               { Auth.isLoggedIn && !props.showControllers ?
 
                 <div className='actions-div'>
-                  {!reaction && <img onClick={reactionHandler} src='like_logo.png' className='actions_logo' alt='like'/>}
-                  {reaction && <img onClick={reactionHandler} src='liked_logo.png' className='actions_logo' alt='like'/>}
-                  {<img src='comment_logo.png' className='actions_logo' alt='comment'/>}
-                  <img onClick={openMapHandler} src='location_logo.png' className='actions_logo' alt='location'/>
+                  {!reaction && <img onClick={reactionHandler} src={like_logo} className='actions_logo' alt='like'/>}
+                  {reaction && <img onClick={reactionHandler} src={liked_logo} className='actions_logo' alt='like'/>}
+                  {<img src={comment_logo} onClick={openCommentsHandler} className='actions_logo' alt='comment'/>}
+                  <img onClick={openMapHandler} src={location_logo} className='actions_logo' alt='location'/>
                 </div>
 
                 :

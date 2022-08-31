@@ -1,60 +1,41 @@
-import React, { useEffect, useState} from 'react'
 import "./PlaceCommentItem.css"
-import comment_logo from "../../shared/assets/comment_logo.png"
+import delete_logo from "../../shared/assets/delete_logo.png";
+import { DeleteComment } from "../utils/DeleteComment";
+import { AuthContext } from '../../shared/context/auth-context'
+import { useContext, useState } from "react";
+
 
 const PlaceComentItem = (props) => {
 
-    const {comment} = props;
+  const {comment} = props;
+  const Auth = useContext(AuthContext).authenticatedUser;
+  const [showDeleteOption, setShowDeleteOption] = useState(false);
 
-    const [commentedUser, setCommentedUser] = useState(null);
-    const [isLoading, setIsLoading] = useState(false);
+  const showDeteleOptionHandler = () => {
+    
+    if(Auth.id === comment.user_id)setShowDeleteOption(true);
+  }
 
-    useEffect(() => {
-        const loadActiveUser = async() => {
-            try {
-                setIsLoading(true);
-                const request = await fetch(`http://localhost:8000/api/users/${comment.user_id}`);
-
-                if(!request.ok)throw new Error("server side error");
-
-                const requestData = await request.json();
-
-                if(!requestData.status) throw new Error(requestData.message)
-
-                setCommentedUser(requestData.user);
-
-                setIsLoading(false);
-            } catch (error) {
-                console.log("error: ", error)
-            }
-        }
-
-        loadActiveUser();
-    }, [])
+  const deleteCommentHandler = async() => {
+    try {
+      await DeleteComment(comment.id);
+      props.onRefreshList();
+    } catch (error) {
+      console.log("failed to delete comment");
+    }
+  }
 
   return (
 
-    <div className='comment-item'>
+    <div className='comment-item' onMouseLeave={()=>setShowDeleteOption(false)} onMouseEnter={showDeteleOptionHandler}>
 
-        {
-        
-        isLoading ? 
-        
-        <p>
-            Loading...
-        </p>
-
-        :
-
-        <>
-            {commentedUser && <img alt='' src={commentedUser.image}/>}
-            <h6>
-                {comment.body}
-            </h6>
-        </>
-
-        }
-
+      <img alt='Auth' className="auth_logo" src={comment.auth_image}/>
+      <p className="comment-text">
+          {comment.body}
+      </p>
+      {showDeleteOption && 
+        <img alt='Delete' className="delete_logo" onClick={deleteCommentHandler} src={delete_logo}/>
+      }
     </div>
   )
 }

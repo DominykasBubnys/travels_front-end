@@ -9,7 +9,7 @@ import { useState } from 'react'
 const PlaceList = (props) => {
   const [reload, setReload] = useState(false)
   const [searchTerm, setSearchTerm] = useState('')
-  const User = useContext(AuthContext)
+  const User = useContext(AuthContext).authenticatedUser;
   const placesAuthId = parseInt(props.placesAuthId);
 
   const reloadHandler = () => {
@@ -21,7 +21,7 @@ const PlaceList = (props) => {
       <div className="place-list center">
         <Card>
           <h2 className="no-place-header">No places found</h2>
-          {User.isLoggedIn && User.userId === props.userId && (
+          {User && User.id === props.userId && (
             <Button to="/places/new">Share place</Button>
           )}
         </Card>
@@ -29,7 +29,7 @@ const PlaceList = (props) => {
     )
   }
 
-  const elementList = props.items
+  const elementsList = props.items
     .filter((place) => {
       if (searchTerm === '') return place
       else if (place.title.toLowerCase().includes(searchTerm.toLowerCase()))
@@ -44,7 +44,7 @@ const PlaceList = (props) => {
         description={place.description}
         address={place.address}
         likes={place.likes}
-        showControllers={placesAuthId === parseInt(User.userId)}
+        showControllers={placesAuthId === parseInt(User ? User.id : undefined)}
         onDelete={props.onDeletePlace}
         onReload={reloadHandler}
       />
@@ -62,7 +62,7 @@ const PlaceList = (props) => {
         />
       </div>
 
-      {elementList}
+      {elementsList}
     </ul>
   )
 }

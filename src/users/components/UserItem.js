@@ -14,9 +14,9 @@ const UserItem = props => {
           </div>
           <div className="user-item__info">
             <h2>{props.name}</h2>
-            {/* <h3>
-              {props.placeCount.length} {props.placeCount.length === 1 ? 'Place' : 'Places'}
-            </h3> */}
+            <h3>
+              2 places{/* {props.placeCount.length} {props.placeCount.length === 1 ? 'Place' : 'Places'} */}
+            </h3>
           </div>
         </Link>
       </Card>

@@ -5,6 +5,8 @@ import Button from '../../shared/FormElements/Button'
 import { useHistory } from 'react-router-dom'
 import PlaceComentItem from './PlaceComentItem'
 import { AddNewComment } from '../utils/AddNewComment'
+import plus_logo from "../../shared/assets/plus_logo.png";
+
 import './PlaceCommentsList.css'
 
 
@@ -16,7 +18,7 @@ const CommentsList = (props) => {
   const [newCommentInput, setNewCommentInput] = useState("");
   const [isButtonDisable, setIsButtonDisable] = useState(true);
   const [refreshCommentsData, setRefreshCommentsData] = useState(false);
-  const Auth = useContext(AuthContext);
+  const Auth = useContext(AuthContext).authenticatedUser;
   const history = useHistory()
 
   const addNewCommentHandler = async() => {
@@ -24,7 +26,7 @@ const CommentsList = (props) => {
 
 
     try {
-      const request = await AddNewComment(props.pid, Auth.userId, newCommentInput)
+      const request = await AddNewComment(props.pid, Auth, newCommentInput)
 
       if(!request.status)throw new Error("Cannot send a comment");
     } catch (error) {
@@ -41,7 +43,6 @@ const CommentsList = (props) => {
   }
 
   useEffect(()=>{
-    console.log("useefect");
     
     const loadPlaceComments = async() => {
       try {
@@ -76,16 +77,17 @@ const CommentsList = (props) => {
 
   return (
     
-    <>
+    <div className='comments-container'>
+
       {isloading && <LoadingSpinner />}
-      {!isloading && commentsData && <div className='comments-container'>
-        
-        
+      {!isloading && commentsData && 
+          
+          
         <div>
-          {  Auth.isLoggedIn ? 
+          {  Auth ? 
             <div className='add-new-comment'>
               <input placeholder='Add new comment' autoFocus onChange={newCommentInputHandler} />
-              {!isButtonDisable && <button onClick={addNewCommentHandler}>+</button>}
+              {!isButtonDisable && <img alt='add' src={plus_logo} className="plus_logo" onClick={addNewCommentHandler} />}
             </div>
             :
             <Button onClick={() => history.push('/auth')}>
@@ -94,17 +96,26 @@ const CommentsList = (props) => {
           }
           {
             commentsCount === 0 ?
-            <h6 className='no-comments-header'>No comments now</h6>
+            <p className='no-comments-header'>No comments now</p>
             :
-            <ul>
-              {commentsData.map(comment=><PlaceComentItem key={comment.id} comment={comment}/>)}
+            <ul className='comments-content'>
+              {commentsData.slice().reverse().map((comment,i)=>{
+
+                if(props.version){
+                  if(i===4)return <p>...</p>
+                  if(i > 4)return null; 
+                }
+                
+                return <PlaceComentItem key={comment.id} onRefreshList={()=>setRefreshCommentsData(true)} comment={comment}/>
+              })}
             </ul>
             
           }
         </div>
 
-      </div>}
-    </>
+      }
+    </div>
+
   )
 }
 

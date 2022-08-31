@@ -14,10 +14,11 @@ import like_logo from "../../shared/assets/like_logo.png"
 import liked_logo from "../../shared/assets/liked_logo.png"
 import comment_logo from "../../shared/assets/comment_logo.png";
 import location_logo from "../../shared/assets/location_logo.png";
+import { postReaction } from '../utils/PostReaction'
 
 
 const PlaceItem = (props) => {
-  const Auth = useContext(AuthContext)
+  const Auth = useContext(AuthContext).authenticatedUser;
   const history = useHistory()
   const [showMap, setShowMap] = useState(false)
   const [showConfirmModal, setConfirmModal] = useState(false)
@@ -76,6 +77,9 @@ const PlaceItem = (props) => {
 
   const reactionHandler = async () => {
     
+    const reactionRequest = await postReaction('add', props.id, Auth.id);
+
+    console.log('reactionRequest: ', reactionRequest)
   }
 
   const detailsButtonHandler = () => {
@@ -152,24 +156,7 @@ const PlaceItem = (props) => {
 
             <div className="place-item__actions">
 
-              {/* {Auth.isLoggedIn && !reaction && (
-                // <Button inverse onClick={reactionHandler}>
-                //   LIKE [{likesAmount}]
-                // </Button>
-                <img src='like_logo.png' className='actions_logo' alt='like'/>
-              )}
-              {Auth.isLoggedIn && reaction && (
-                // <Button inverse onClick={reactionHandler}>
-                //   DISLIKE [{likesAmount}]
-                // </Button>
-                <img src='liked_logo.png' className='actions_logo' alt='like'/>
-
-              )}
-
-               */}
-              
-
-              { Auth.isLoggedIn && !props.showControllers ?
+              { Auth && !props.showControllers ?
 
                 <div className='actions-div'>
                   {!reaction && <img onClick={reactionHandler} src={like_logo} className='actions_logo' alt='like'/>}

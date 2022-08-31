@@ -4,22 +4,19 @@
     text-align: center;
 }
 
-.new-comment-btn{
-    font-size: 1.8rem;
-    color: antiquewhite;
+.plus_logo{
+    padding: 0;
+    margin: 0;
+    width: 2rem;
     border: none;
     outline: none;
-    background-color: transparent;
     transition-duration: 0.3s;
     cursor: pointer;
 }
 
-.new-comment-btn:hover{
-    font-size: 2.3rem;
-}
-
 .add-new-comment{
     text-align: center;
+
 }
 
 .add-new-comment input{
@@ -35,19 +32,10 @@
     outline: none;
     border: none;
     margin-bottom: 2rem;
-    border-bottom: 1px solid antiquewhite;
+    border-bottom: 1px solid rgba(250, 235, 215, 0.667);
 }
 
-.add-new-comment button{
-    cursor: pointer;
-    font-size: 2vw;
-    background-color: rgba(189, 176, 176, 0.42);
-    transition-duration: 0.4s;
-}
 
-.add-new-comment button:hover{
-    background-color: antiquewhite;
-}
 
 /* .no-comments-header{
     font-size: 0.8vw;

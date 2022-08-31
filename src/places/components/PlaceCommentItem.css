@@ -9,10 +9,22 @@
     margin: 1rem 0;
 }
 
-.comment-item img{
+.auth_logo{
     align-self: center;
     width: 3rem;
     border-radius: 50% 0;
+}
+
+.delete_logo{
+    border-radius: 0;
+    width: 1.3rem;
+    cursor: pointer;
+    align-self: center;
+    transition-duration: 0.1s;
+}
+
+.delete_logo:hover{
+    width: 2rem;
 }
 
 .comment-text{
